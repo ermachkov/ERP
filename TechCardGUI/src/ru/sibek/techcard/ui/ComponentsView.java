@@ -233,7 +233,7 @@ public class ComponentsView extends Component {
                             MachinesCatalog mc = (MachinesCatalog) db.getObject(MachinesCatalog.class.getName(), Long.valueOf(deviceid));
                             mc.addTechCard(tcid);
                             db.updateObject(mc);
-                           linkTechCard = new Link(getSession(),"Маршрутная карта");
+                           //ДОПИЛИТЬ ПРОБЛЕМУ 2 (Добавление мк когда база пуста)
                             //--------------BLYAD!!!
                            Detail d = new Detail(getSession());
                             d.setSummary(jsonObject.getString("partname"));
@@ -739,8 +739,14 @@ public class ComponentsView extends Component {
                     //HERE!!!!!!  
                     MachinesCatalog mc = (MachinesCatalog) db.getObject(MachinesCatalog.class.getName(), Long.valueOf(jsonObject.getString("id_bd")));
                     ArrayList<Long> partids = mc.getTechCard();
-                    ArrayList<TechnologyCard> technologyCard = db.getAllObjectsList(TechnologyCard.class.getName(), partids);
-                                 
+                   //DIMA ETO DOPILIT ArrayList<TechnologyCard> technologyCard = db.getAllObjectsList(TechnologyCard.class.getName(), partids);
+                    //KOSTYL'
+                    ArrayList<TechnologyCard> technologyCard = new ArrayList();
+                    for (Long p:partids)
+                    {
+                        technologyCard.add((TechnologyCard)db.getObject(TechnologyCard.class.getName(),p));
+                    }
+                    //KOSTYL'
                     dl = new DetailsList(getSession());
                     if (!technologyCard.isEmpty()) {
                         if (emptyTable) {
@@ -815,7 +821,15 @@ public class ComponentsView extends Component {
                 //TUT OTOBRAZENIE EBUCHEY FORMY PO GOSTU//
                 MarshrutCard mcard = (MarshrutCard) db.getObject(MarshrutCard.class.getName(), Long.valueOf(jsonObject.getString("id_mk")));
                 formtype = mcard.getFormtype();
-                ArrayList<Operations> operations = db.getAllObjectsList(Operations.class.getName(), mcard.getOperations());
+          //DIMA      ArrayList<Operations> operations = db.getAllObjectsList(Operations.class.getName(), mcard.getOperations());
+                //KOSTYL'
+                ArrayList<Operations> operations =new ArrayList();
+                ArrayList<Long> idsoper = mcard.getOperations();
+                for (Long id:idsoper)
+                {
+                    operations.add((Operations)db.getObject(Operations.class.getName(), id));
+                }
+                //KOSTYL'
                 String formheader = "", formbody = "", formfooter = "";
                 switch (formtype) {
                     case "form1": {

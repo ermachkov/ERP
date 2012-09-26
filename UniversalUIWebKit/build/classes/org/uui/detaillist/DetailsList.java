@@ -123,7 +123,7 @@ public class DetailsList extends Component {
         } else if (model.equals("")) {
             isDefined = false;
         }
-    
+    model="";
             //model = "<details class='operation'" + getAttribute() + "identificator='" + getIdentificator()+"'>"
            //  + "<summary style='padding:10px' class='operation_name'>"+getSummary()+"</summary>";
             for (Detail itm: item)
