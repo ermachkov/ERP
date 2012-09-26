@@ -1,0 +1,397 @@
+package org.uui.webkit;
+
+import java.io.*;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.Executors;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.zip.GZIPOutputStream;
+
+public class WebKitHTTPServer {
+
+    private static WebKitHTTPServer self = null;
+    private int port = 1572;
+    private boolean hasMore = true;
+    private String pathToRootFolder;
+    ConcurrentHashMap<String, Map<String, String>> fileHandlersMap = new ConcurrentHashMap<>();
+    final static String CRLF = "\r\n";
+
+    public static WebKitHTTPServer startSocket(String pathToRootFolder, int port) {
+        if (self == null) {
+            self = new WebKitHTTPServer();
+            self.pathToRootFolder = pathToRootFolder;
+            self.hasMore = true;
+            self.port = port;
+            Executors.newSingleThreadExecutor().execute(self.runServer());
+        }
+
+        return self;
+    }
+
+    public void addFileHandler(String fileName, Map<String, String> replaceMap) {
+        fileHandlersMap.put(fileName, replaceMap);
+    }
+
+    public static void stopServer() {
+        if (self != null) {
+            self.hasMore = false;
+        }
+    }
+
+    private Runnable runServer() {
+        Runnable r = new Runnable() {
+
+            @Override
+            public void run() {
+                try {
+                    ServerSocket serverSocket = new ServerSocket(port);
+                    System.out.println("WebKitServerSocket running on port " + serverSocket.getLocalPort());
+                    Logger.getGlobal().log(Level.INFO, "WebKitServerSocket running on port {0}", serverSocket.getLocalPort());
+
+                    // server infinite loop
+                    while (hasMore) {
+                        Socket socket = serverSocket.accept();
+                        Logger.getGlobal().log(Level.INFO, "New connection accepted {0}:{1}", new Object[]{socket.getInetAddress(), socket.getPort()});
+                        Executors.newSingleThreadExecutor().execute(httpRequestHandler(pathToRootFolder, socket));
+                    }
+                } catch (IOException e) {
+                    Logger.getGlobal().log(Level.SEVERE, null, e);
+                }
+            }
+        };
+
+        return r;
+    }
+
+    private Runnable httpRequestHandler(final String pathToRootFolder, final Socket socket) {
+        Runnable r = new Runnable() {
+
+            @Override
+            public void run() {
+                OutputStream output = null;
+                InputStream is = null;
+
+                try {
+                    output = socket.getOutputStream();
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    ByteArrayOutputStream baosPostData = new ByteArrayOutputStream();
+                    String fileName = "", uploadFileName = "",
+                            contentType = "application/octet-stream",
+                            boundary = "";
+                    boolean isGetResponse = false, isGetRequest = false,
+                            isPostRequest = false, isStartPostRead = false;
+                    int postDataLength = 0, postExtraDataLength = 0;
+
+                    is = socket.getInputStream();
+                    byte b[] = new byte[1];
+                    int len;
+                    while (true) {
+                        len = is.read(b);
+                        if (len < 0) {
+                            break;
+                        }
+
+                        baos.write(Arrays.copyOf(b, len));
+
+                        if (isStartPostRead) {
+                            baosPostData.write(Arrays.copyOf(b, len));
+                            Logger.getGlobal().log(Level.INFO, "upload length: {0}, {1}", new Object[]{baosPostData.toByteArray().length, postDataLength});
+
+                            if (baosPostData.toByteArray().length >= postDataLength - postExtraDataLength) {
+                                try {
+                                    byte bFile[] = Arrays.copyOf(
+                                            baosPostData.toByteArray(),
+                                            postDataLength);
+
+                                    Path root = Paths.get(pathToRootFolder).getRoot();
+                                    Path subPath = Paths.get(pathToRootFolder).subpath(0,
+                                            Paths.get(pathToRootFolder).getNameCount() - 1);
+
+                                    Path pUpload = Paths.get(root.toString(),
+                                            subPath.toString(), "tmp", uploadFileName);
+                                    Files.write(pUpload, bFile);
+
+                                    String response = "{status:\"success\", file:\"" + pUpload.toString().trim() + "\"}";
+                                    output.write(("HTTP/1.1 201 OK" + CRLF).getBytes());
+                                    output.write(("Content-type: text/html" + CRLF).getBytes());
+                                    output.write(("Content-Length: " + response.getBytes().length + CRLF).getBytes());
+                                    output.write(CRLF.getBytes());
+                                    output.write(response.getBytes());
+                                    output.flush();
+                                    break;
+
+                                } catch (Exception e) {
+                                    String response = "{status:error, reason:" + e.toString() + "}";
+                                    output.write(("HTTP/1.1 404 OK" + CRLF).getBytes());
+                                    output.write(("Content-type: text/html" + CRLF).getBytes());
+                                    output.write(("Content-Length: " + response.getBytes().length + CRLF).getBytes());
+                                    output.write(CRLF.getBytes());
+                                    output.write(response.getBytes());
+                                    output.flush();
+                                    break;
+                                }
+
+                            } else {
+                                continue;
+                            }
+                        }
+                        //Logger.getGlobal().info(baos.toString());
+
+                        if (isGetRequest) {
+                            if (baos.toString().endsWith(CRLF + CRLF)) {
+                                isGetResponse = true;
+                            }
+                        }
+
+                        if (isPostRequest) {
+                            Pattern pattern = Pattern.compile("Content-Disposition:(.*?)" + CRLF);
+                            Matcher matcher = pattern.matcher(baos.toString());
+                            while (matcher.find()) {
+                                String s = matcher.group();
+                                String a[] = s.split(";");
+                                uploadFileName = a[a.length - 1].split("=")[1].replaceAll("\"", "").trim();
+                                postExtraDataLength += s.length();
+                                baos.reset();
+                            }
+
+                            pattern = Pattern.compile("Content-Type:(.*?)boundary(.*?)" + CRLF);
+                            matcher = pattern.matcher(baos.toString());
+                            while (matcher.find()) {
+                                String s = matcher.group();
+                                String a[] = s.split(";");
+                                boundary = a[a.length - 1].split("=")[1].trim();
+                                postExtraDataLength += (boundary.length() * 2);
+                                baos.reset();
+                            }
+
+                            pattern = Pattern.compile("Content-Type:(.*?)" + CRLF);
+                            matcher = pattern.matcher(baos.toString());
+                            while (matcher.find()) {
+                                String s = matcher.group();
+                                if (s.indexOf("boundary") == -1) {
+                                    postExtraDataLength += s.length();
+                                    //baos.reset();
+                                }
+                            }
+
+                            //Content-Length: 1651
+                            pattern = Pattern.compile("Content-Length:(.*?)" + CRLF);
+                            matcher = pattern.matcher(baos.toString());
+                            while (matcher.find()) {
+                                String a[] = matcher.group().split(":");
+                                postDataLength = Integer.parseInt(a[1].trim());
+                            }
+
+                            if (baos.toString().endsWith(CRLF + CRLF) && !boundary.equals("") && !uploadFileName.equals("")) {
+                                isStartPostRead = true;
+                                b = new byte[1024];
+                                continue;
+                            }
+
+                        }
+
+                        if (baos.toString().split(CRLF).length > 1) {
+                            String a[] = baos.toString().split("\\s");
+                            if (a[0].trim().equals("GET")) {
+                                fileName = a[1].trim();
+                                isGetRequest = true;
+                            }
+
+                            if (a[0].trim().equals("POST")) {
+                                fileName = a[1].trim();
+                                isPostRequest = true;
+                            }
+                        }
+
+                        if (isGetResponse) {
+                            boolean isError = false;
+                            String arr[] = fileName.split("\\?");
+                            String file = arr[0];
+                            Path p = Paths.get(pathToRootFolder, file);
+
+                            byte[] binaryData;
+                            if (fileHandlersMap.containsKey(p.getName(p.getNameCount() - 1).toString())) {
+                                Map<String, String> m = fileHandlersMap.get(p.getName(p.getNameCount() - 1).toString());
+                                String search = m.keySet().toArray(new String[0])[0];
+                                String replace = m.get(search);
+                                String out = "";
+                                List<String> lines = Files.readAllLines(p, Charset.forName("utf-8"));
+                                for (String line : lines) {
+                                    line = line.replaceAll(search, replace);
+                                    out += line + "\n";
+                                }
+                                binaryData = out.getBytes();
+
+                            } else {
+                                if (!p.toFile().exists()) {
+                                    binaryData = new byte[0];
+                                    Logger.getGlobal().log(Level.WARNING, "Not exist {0}", p);
+                                    isError = true;
+
+                                } else {
+                                    binaryData = Files.readAllBytes(p);
+                                }
+
+                            }
+
+                            String textData = null;
+
+                            if (file.equals("")) {
+                                file = "index.html";
+                            }
+
+                            if (file.toLowerCase().endsWith(".png")) {
+                                contentType = "image/png";
+
+                            } else if (file.toLowerCase().endsWith(".gif")) {
+                                contentType = "image/gif";
+
+                            } else if (file.toLowerCase().endsWith(".jpg")) {
+                                contentType = "image/jpg";
+
+                            } else if (file.toLowerCase().endsWith(".html") || file.endsWith(".htm")) {
+                                contentType = "text/html";
+                                textData = new String(binaryData, "utf-8");
+
+                            } else if (file.toLowerCase().endsWith(".css")) {
+                                contentType = "text/css";
+                                textData = new String(binaryData, "utf-8");
+
+                            } else if (file.toLowerCase().endsWith(".js")) {
+                                contentType = "text/javascript";
+                                textData = new String(binaryData, "utf-8");
+                            }
+
+
+                            ByteArrayOutputStream gzipBaos = null;
+                            String serverLine = "Server: WebKitHttpServer" + CRLF;
+                            String statusLine, contentTypeLine, entityBody = "", contentLengthLine;
+                            if (!isError) {
+                                statusLine = "HTTP/1.1 200 OK" + CRLF;
+                                contentTypeLine = "Content-type: " + contentType + CRLF;
+                                int contentLength = binaryData.length;
+                                if (textData != null) {
+                                    contentLength = textData.getBytes().length;
+                                }
+                                contentLengthLine = "Content-Length: " + contentLength + CRLF;
+                            } else {
+                                statusLine = "HTTP/1.1 404 Not Found" + CRLF;
+                                contentTypeLine = "text/html";
+                                entityBody = "<HTML>"
+                                        + "<HEAD><TITLE>404 Not Found</TITLE></HEAD>"
+                                        + "<BODY>" + fileName + "<br/>404 Not Found"
+                                        + "</BODY></HTML>";
+                                contentLengthLine = "Content-Length: "
+                                        + entityBody.length() + CRLF;
+                            }
+
+                            // Send the status line.
+                            output.write(statusLine.getBytes());
+                            Logger.getGlobal().info(statusLine);
+
+                            // Send the server line.
+                            output.write(serverLine.getBytes());
+                            Logger.getGlobal().info(serverLine);
+
+                            // Send cache
+//                            if (contentType.indexOf("css") != -1
+//                                    || contentType.indexOf("javascript") != -1
+//                                    || contentType.indexOf("png") != -1) {
+//                                String cache = "Cache-Control: max-age=86400" + CRLF;
+//                                output.write(cache.getBytes());
+//                                Logger.getGlobal().info(cache);
+//                            }
+
+                            if (contentType.indexOf("css") != -1
+                                    || contentType.indexOf("javascript") != -1
+                                    || contentType.indexOf("html") != -1) {
+                                String gzip = "Content-Encoding: gzip" + CRLF;
+                                output.write(gzip.getBytes());
+                                Logger.getGlobal().info(gzip);
+
+                                gzipBaos = new ByteArrayOutputStream();
+                                try (OutputStreamWriter writer = new OutputStreamWriter(
+                                             new GZIPOutputStream(new BufferedOutputStream(gzipBaos)))) {
+                                    writer.write(textData);
+                                    writer.flush();
+                                }
+                                contentLengthLine = "Content-Length: " + gzipBaos.toByteArray().length + CRLF;
+                            }
+
+                            // Send the content type line.
+                            output.write(contentTypeLine.getBytes());
+                            Logger.getGlobal().info(contentTypeLine);
+
+                            // Send the Content-Length
+                            output.write(contentLengthLine.getBytes());
+                            Logger.getGlobal().info(contentLengthLine);
+
+                            // Send a blank line to indicate the end of the header lines.
+                            output.write(CRLF.getBytes());
+                            Logger.getGlobal().info(CRLF);
+
+                            // Send the entity body.
+                            if (!isError) {
+                                if (textData != null) {
+                                    output.write(gzipBaos.toByteArray());
+                                    output.flush();
+
+                                    //output.write(textData.getBytes());
+                                    //output.flush();
+
+                                } else {
+                                    output.write(binaryData);
+                                    output.flush();
+                                }
+
+                            } else {
+                                output.write(entityBody.getBytes());
+                                output.flush();
+                            }
+                            break;
+                        }
+                    }
+
+                } catch (IOException | NumberFormatException e) {
+                    Logger.getGlobal().log(Level.SEVERE, null, e);
+                }
+
+                try {
+                    is.close();
+                    output.close();
+                    socket.close();
+
+                } catch (IOException ex) {
+                    try {
+                        if (is != null) {
+                            is.close();
+                        }
+
+                        if (output != null) {
+                            output.close();
+                        }
+
+                        if (socket != null) {
+                            socket.close();
+                        }
+                    } catch (Exception e) {
+                    }
+                    Logger.getGlobal().log(Level.SEVERE, null, ex);
+                }
+            }
+        };
+
+        return r;
+    }
+}

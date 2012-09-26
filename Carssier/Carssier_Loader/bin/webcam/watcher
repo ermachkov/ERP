@@ -1,0 +1,22 @@
+#!/bin/bash
+
+cd $1;
+
+user="formula";
+host="http://192.168.0.210:9998";
+
+while :
+do
+   file=`ls -lrt | awk '/frame_/ { f=$NF };END{ print f }'`
+   echo $file;
+   mv $file "last/frame.jpg";
+   rm *
+
+   request=/home/$USER/.saas/app/bin/webcam/request
+   if [ -e "$request" ];
+      then
+         curl -F "frame_$user=@/home/$USER/.saas/app/ui/img/stream/last/frame.jpg" "$host/videoInput"
+   fi
+
+   sleep .25
+done

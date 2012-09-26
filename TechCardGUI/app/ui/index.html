@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Nested Details</title>
+        <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+        <link href="bootstrap/css/style.css" rel="stylesheet">
+        <link href="css/core.css" rel="stylesheet">
+        <link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">   
+        <script src="bootstrap/js/bootstrap.min.js"></script>
+        <script src="bootstrap/js/bootstrap.js"></script>
+        <script src="bootstrap/js/bootstrap-dropdown.js"></script>
+        <script src="bootstrap/js/jquery-1.7.1.js"></script>
+        <script src="bootstrap/js/bootstrap-dropdown.js"></script>
+        <script src="bootstrap/js/bootstrap-collapse.js"></script>
+
+        <script src="bootstrap/js/bootstrap-transition.js"></script>
+        <script src="bootstrap/js/bootstrap-alert.js"></script>
+        <script src="bootstrap/js/bootstrap-modal.js"></script>
+        <script src="bootstrap/js/bootstrap-dropdown.js"></script>
+        <script src="bootstrap/js/bootstrap-scrollspy.js"></script>
+        <script src="bootstrap/js/bootstrap-tab.js"></script>
+        <script src="bootstrap/js/bootstrap-tooltip.js"></script>
+        <script src="bootstrap/js/bootstrap-popover.js"></script>
+        <script src="bootstrap/js/bootstrap-button.js"></script>
+        <script src="vjs/bootstrap-collapse.js"></script>
+        <script src="bootstrap/js/bootstrap-carousel.js"></script>
+        <script src="bootstrap/js/bootstrap-typeahead.js"></script>
+        <script src="js/core.js"></script>
+        <script src="js/jquery.json-2.3.min.js"></script>
+        
+        <script>
+            var sess = "{sess}";
+        </script>
+      
+    </head>
+    <body>
+    
+        <ul class="nav nav-tabs">
+            <li onclick="getUICore().loadPanel();"><a href="#tab1" data-toggle="tab">Изделия </a></li>
+        </ul>
+        <div id='bodyPanel' class="tab-content" style="padding-bottom: 9px; border-bottom: 1px solid #ddd;">
+            <div class="alert alert-success">
+        <strong>Поздравляем!</strong> Выберите вкладку "Изделия" чтобы просмотреть список доступных изделий.
+      </div>
+                
+                <!--   
+                document.addEventListener("DOMContentLoaded",getUICore().loadPanel(), false);
+                <button class="btn btn-primary" data-toggle="modal" data-target="#make-device" >
+                    <i class="icon-plus icon-white"></i>
+                    Make
+                </button>
+                
+                <table cellpadding="0" cellspacing="0" border="0" class="macTable table table-striped table-bordered" id="" identificator="32355719" style="margin-top: 10px;">
+                    <thead>
+                        <tr>
+                            <th align="center">Обозначение</th>
+                            <th>Наименование</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr row="0" sel="unselected" style="background-color: rgb(255, 255, 255); ">
+                            <td align="center" style="border-right: 1px solid #666;" row="0" column="0" identificator="1126920683">
+                                <span style="white-space:nowrap;">ВЭР 1.000.000 СБ</span>
+                            </td>
+                            <td align="left" valign="middle" row="0" column="1" value="Simply text on row in table &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; 0" style="border-right: 1px solid #666;" class="tblCell" identificator="534431909">
+                                <span style="white-space:nowrap;"><a href="index3.html">Вулканизатор Микрон</a></span>
+                            </td>
+                        </tr>
+                        <tr row="1" sel="unselected" style="background-color: rgb(255, 255, 255); ">
+                            <td align="center" style="border-right: 1px solid #666;" row="0" column="0" identificator="1126920683">
+                                <span style="white-space:nowrap;">ВЭР 2.000.000 СБ</span>
+                            </td>
+                            <td align="left" valign="middle" row="0" column="1" value="Simply text on row in table &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; 0" style="border-right: 1px solid #666;" class="tblCell" identificator="534431909">
+                                <span style="white-space:nowrap;"><a href="#">Станок Фаворит</a></span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>  -->
+               
+           
+            <div class="tab-pane" id="tab2">
+                <button class="btn btn-primary" data-toggle="modal" data-target="#make-tech-card" >
+                    <i class="icon-plus icon-white"></i>
+                    Make
+                </button>
+                <h1>Вулканизатор Микрон</h1>
+                <a href="GOST.html"  target="_blank">Show tech card</a>
+                <details class="tech_card" style="width: 380px;">
+                    <summary class="name_card">Колесо
+                    </summary>
+                    <details class="operation">
+                        <summary style="padding:10px" class="operation_name">Заготовительная операция</summary>
+                        <p class="description">Заготовка ст. 3 h10 ГОСТ 19903</p>
+                    </details>        
+                    <details class="operation">
+                        <summary style="padding:10px" class="operation_name">Плазма</summary>
+                        <p class="description">Вырезать заготовку согласно<a href="http://3dgroup.3dn.ru/_ld/0/98.jpg"> чертежу</a></p>
+                        <p>Время выполнения(час): <span class="time">0,09</span></p>
+                        <p>Масса: <span class="weight">9</span></p>
+                        <details class="workers_list">
+                            <summary style="padding-left:25px">Рабочие</summary>	
+                            <details class="workers">
+                                <summary style="padding-left:35px" class="worker_name">Слесарь</summary>
+                                <ul>
+                                    <li>Разряд: <span class="category">3</span></li>
+                                    <li>Расценка: <span class="price">1000</span></li>
+                                </ul>
+                            </details>
+                            <details class="workers">
+                                <summary style="padding-left:35px" class="worker_name">Слесарь2</summary>
+                                <ul>
+                                    <li>Разряд: <span class="category">3</span></li>
+                                    <li>Расценка: <span class="price">700</span></li>
+                                </ul>
+                            </details>
+                        </details>
+                        <details  style="padding-left:25px" class="devices">
+                            <summary>Приспособления и оснастка:</summary>
+                            <ul>
+                                <li>Наименование:<span style="padding-left:35px" class="device_name">Плазмарез</span></li>
+                                <li>Децимальный номер:<span style="padding-left:35px" class="device_code">LG 205.050.2</span></li>
+                            </ul>
+
+                        </details>
+                        <details style="padding-left:25px" class="machines">
+                            <summary>Оборудование(cтанки): </summary>
+                            <ul>
+                                <li>Наименование:<span style="padding-left:35px" class="machine_name">Cтанок</span></li>
+                                <li>Децимальный номер:<span style="padding-left:35px" class="machine_code">634354</span></li>
+                            </ul>
+                        </details>
+                    </details>
+
+                </details> 
+                <a class="btn btn-inverse" href="#"><i class="icon-pencil icon-white"></i> Редактировать</a>
+                <a class="btn btn-inverse" href="#"><i class="icon-print icon-white"></i> Печать</a>
+                <a class="btn btn-inverse" href="#"><i class="icon-ban-circle icon-white"></i> Забанить</a>
+                <a class="btn btn-danger" href="#"><i class="icon-trash icon-white"></i> Удалить</a>
+            </div>
+            <div class="tab-pane" id="tab3">
+                <p>3-я секция.</p>
+            </div>
+        </div>
+
+        <div id="make-tech-card" class="modal hide fade in" >
+            <div class="modal-header">
+                <button class="close" data-dismiss="modal">×</button>
+                <h3>Cоздание технологической карты</h3>
+            </div>
+            <div class="modal-body">  
+               <!-- <h4>Выберите форму:</h4>
+                
+                <span style="white-space:nowrap;">
+                                    <select id="select01">
+                                        
+                                        <option>Форма 1 Гост 3.1118-84</option>
+                                        <option>Форма 1б Гост 3.1118-84</option>
+                                    </select>
+                                </span>
+                <h4>Введите наименование конторы:</h4>
+                <input type="text" class="input-xlarge" id="input">
+                <h4>Введите номер 1:</h4>
+                <input type="text" class="input-xlarge" id="input">
+                <h4>Введите номер 2:</h4>
+                <input type="text" class="input-xlarge" id="input">
+                <h4>Введите наименование детали:</h4>
+                <input type="text" class="input-xlarge" id="input">
+                <h4>Наимеование материала(М01):</h4>
+                 <input type="text" class="input-xlarge" id="input">
+                  <h4>Информация о применяемых вспомогательных и комплектующих материалах(М02):</h4>
+                <table cellpadding="0" cellspacing="0" border="0" class="macTable table table-striped table-bordered" id="" identificator="32355719">
+                    <thead>
+                        <tr>
+                            <th align="center">КОД</th>
+                            <th align="center">ЕВ</th>
+                            <th align="center">МД</th>
+                            <th align="center">ЕН</th>
+                            <th align="center">Н.Расх</th>
+                            <th align="center">КИМ</th>
+                            <th align="center">Код заготовки</th>
+                            <th align="center">Профиль и размеры</th>
+                            <th align="center">МЗ</th>
+                            <th align="center">КД</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr row="0" sel="unselected" style="background-color: rgb(255, 255, 255); ">
+                            <td align="center" style="border-right: 1px solid #666;" row="0" column="0" identificator="1126920683">
+                                <input type="text" class="input-mini" id="input">
+                            </td>
+                             <td align="center" style="border-right: 1px solid #666;" row="0" column="0" identificator="1126920683">
+                                <input type="text" class="input-mini" id="input">
+                            </td>
+                             <td align="center" style="border-right: 1px solid #666;" row="0" column="0" identificator="1126920683">
+                                <input type="text" class="input-mini" id="input">
+                            </td>
+                             <td align="center" style="border-right: 1px solid #666;" row="0" column="0" identificator="1126920683">
+                                <input type="text" class="input-mini" id="input">
+                            </td>
+                             <td align="center" style="border-right: 1px solid #666;" row="0" column="0" identificator="1126920683">
+                                <input type="text" class="input-mini" id="input">
+                            </td>
+                             <td align="center" style="border-right: 1px solid #666;" row="0" column="0" identificator="1126920683">
+                                <input type="text" class="input-mini" id="input">
+                            </td>
+                             <td align="center" style="border-right: 1px solid #666;" row="0" column="0" identificator="1126920683">
+                                <input type="text" class="input-mini" id="input">
+                            </td>
+                             <td align="center" style="border-right: 1px solid #666;" row="0" column="0" identificator="1126920683">
+                                <input type="text" class="input-mini" id="input">
+                            </td>
+                             <td align="center" style="border-right: 1px solid #666;" row="0" column="0" identificator="1126920683">
+                                <input type="text" class="input-mini" id="input">
+                            </td>
+                             <td align="center" style="border-right: 1px solid #666;" row="0" column="0" identificator="1126920683">
+                                <input type="text" class="input-mini" id="input">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+               
+                <h4>Операции</h4>
+                <table cellpadding="0" cellspacing="0" border="0" class="macTable table table-striped table-bordered" id="" identificator="32355719">
+                    <thead>
+                        <tr>
+                            <th align="center">Цех</th>
+                            <th align="center">УЧ</th>
+                            <th align="center">РМ</th>
+                            <th align="center">ОПЕР</th>
+                            <th align="center">Наименование операции</th>
+                            <th align="center">Обозначение документа</th>
+                            <th align="center">Наименование оборудования</th>
+                            <th align="center">СМ</th>
+                            <th align="center">ПРОФ</th>
+                            <th align="center">Р</th>
+                            <th align="center">УТ</th>
+                            <th align="center">КР</th>
+                            <th align="center">КОИД</th>
+                            <th align="center">ЕН</th>
+                            <th align="center">Кшт</th>
+                            <th align="center">Тпз</th>
+                            <th align="center">Тшт</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr row="0" sel="unselected" style="background-color: rgb(255, 255, 255); ">
+                            <td align="center" style="border-right: 1px solid #666;" row="0" column="0" identificator="1126920683">
+                                <input type="text" class="input-mini" id="input">
+                            </td>
+                            <td align="center" style="border-right: 1px solid #666;" row="0" column="0" identificator="1126920683">
+                                <input type="text" class="input-mini" id="input">
+                            </td>
+                            <td align="center" style="border-right: 1px solid #666;" row="0" column="0" identificator="1126920683">
+                                <input type="text" class="input-mini" id="input">
+                            </td>
+                            <td align="center" style="border-right: 1px solid #666;" row="0" column="0" identificator="1126920683">
+                            <span style="white-space:nowrap;">005</span>    
+                            </td>
+                            <td align="left" valign="middle" row="0" column="1" value="Simply text on row in table &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; 0" style="border-right: 1px solid #666;" class="tblCell" identificator="534431909">
+                                <span style="white-space:nowrap;">
+                                    <select id="select01">
+                                        <option disabled>Выберите Должность</option>
+                                        <option>Слесарь</option>
+                                        <option>токарь</option>
+                                    </select>
+                                </span>
+                            </td>
+                            <td align="left" valign="middle" row="0" column="1" value="Simply text on row in table &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; 0" style="border-right: 1px solid #666;" class="tblCell" identificator="534431909">
+                                <span style="white-space:nowrap;">
+                                    <select id="select01">
+                                        <option disabled>Выберите Должность</option>
+                                        <option>Слесарь</option>
+                                        <option>токарь</option>
+                                    </select>
+                                </span>
+                            </td>
+                            <td align="left" valign="middle" row="0" column="1" value="Simply text on row in table &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; 0" style="border-right: 1px solid #666;" class="tblCell" identificator="534431909">
+                                <span style="white-space:nowrap;">
+                                    <select id="select01">
+                                        <option disabled>Выберите Должность</option>
+                                        <option>Слесарь</option>
+                                        <option>токарь</option>
+                                    </select>
+                                </span>
+                            </td>
+                            <td align="center" style="border-right: 1px solid #666;" row="0" column="0" identificator="1126920683">
+                                <input type="text" class="input-mini" id="input">
+                            </td>
+                            <td align="center" style="border-right: 1px solid #666;" row="0" column="0" identificator="1126920683">
+                                 <span style="white-space:nowrap;">
+                                    <input type="text" class="input-mini" style="margin: 0 auto;" data-provide="typeahead" data-items="4" data-source="[&quot;Alabama&quot;,&quot;Alaska&quot;,&quot;Arizona&quot;,&quot;Arkansas&quot;,&quot;California&quot;,&quot;Colorado&quot;,&quot;Connecticut&quot;,&quot;Delaware&quot;,&quot;Florida&quot;,&quot;Georgia&quot;,&quot;Hawaii&quot;,&quot;Idaho&quot;,&quot;Illinois&quot;,&quot;Indiana&quot;,&quot;Iowa&quot;,&quot;Kansas&quot;,&quot;Kentucky&quot;,&quot;Louisiana&quot;,&quot;Maine&quot;,&quot;Maryland&quot;,&quot;Massachusetts&quot;,&quot;Michigan&quot;,&quot;Minnesota&quot;,&quot;Mississippi&quot;,&quot;Missouri&quot;,&quot;Montana&quot;,&quot;Nebraska&quot;,&quot;Nevada&quot;,&quot;New Hampshire&quot;,&quot;New Jersey&quot;,&quot;New Mexico&quot;,&quot;New York&quot;,&quot;North Dakota&quot;,&quot;North Carolina&quot;,&quot;Ohio&quot;,&quot;Oklahoma&quot;,&quot;Oregon&quot;,&quot;Pennsylvania&quot;,&quot;Rhode Island&quot;,&quot;South Carolina&quot;,&quot;South Dakota&quot;,&quot;Tennessee&quot;,&quot;Texas&quot;,&quot;Utah&quot;,&quot;Vermont&quot;,&quot;Virginia&quot;,&quot;Washington&quot;,&quot;West Virginia&quot;,&quot;Wisconsin&quot;,&quot;Wyoming&quot;, &quot;Россия&quot;, &quot;Москва&quot;, &quot;Московская область&quot;, &quot;Питербург&quot;, &quot;Арбуз&quot;, &quot;Ананас&quot;, &quot;Анапа&quot;, &quot;Астрахань&quot;, &quot;Барнаул&quot;, &quot;Берлин&quot;, &quot;Вена&quot;, &quot;Варшава&quot;, &quot;Греция&quot;, &quot;Гаити&quot;, &quot;Гаваи&quot;, &quot;Дон&quot;, &quot;Дубаи&quot;, &quot;Ереван&quot;, &quot;Европа&quot;, &quot;Женева&quot;, &quot;Зеленоград&quot;, &quot;Звенигород&quot;, &quot;Иркутск&quot;, &quot;Иртыш&quot;, &quot;Куба&quot;, &quot;Калифорния&quot;, &quot;Лиссабон&quot;, &quot;Литва&quot;, &quot;Москва&quot;, &quot;Мюнхен&quot;, &quot;Новгород&quot;, &quot;Нижний Тагил&quot;, &quot;Омск&quot;, &quot;Орел&quot;, &quot;Польша&quot;, &quot;Ростов&quot;, &quot;Рига&quot;, &quot;Саратов&quot;, &quot;Сена&quot;, &quot;Тамбов&quot;, &quot;Тула&quot;, &quot;Уфа&quot;, &quot;Урюпинск&quot;, &quot;Феникс&quot;, &quot;Филиппины&quot;, &quot;Харьков&quot;, &quot;Челябинск&quot;, &quot;Чита&quot;, &quot;Щербинка&quot;, &quot;Эфиопия&quot;, &quot;Юрмала&quot;, &quot;Ямайка&quot;]">
+                                </span>
+                            </td>
+                            <td align="center" style="border-right: 1px solid #666;" row="0" column="0" identificator="1126920683">
+                                <input type="text" class="input-mini" id="input">
+                            </td>
+                            <td align="center" style="border-right: 1px solid #666;" row="0" column="0" identificator="1126920683">
+                                <input type="text" class="input-mini" id="input">
+                            </td>
+                            <td align="center" style="border-right: 1px solid #666;" row="0" column="0" identificator="1126920683">
+                                <input type="text" class="input-mini" id="input">
+                            </td>
+                            <td align="center" style="border-right: 1px solid #666;" row="0" column="0" identificator="1126920683">
+                                <input type="text" class="input-mini" id="input">
+                            </td>
+                            <td align="center" style="border-right: 1px solid #666;" row="0" column="0" identificator="1126920683">
+                                <input type="text" class="input-mini" id="input">
+                            </td>
+                            <td align="center" style="border-right: 1px solid #666;" row="0" column="0" identificator="1126920683">
+                                <input type="text" class="input-mini" id="input">
+                            </td>
+                            <td align="center" style="border-right: 1px solid #666;" row="0" column="0" identificator="1126920683">
+                                <input type="text" class="input-mini" id="input">
+                            </td>
+                            <td align="center" style="border-right: 1px solid #666;" row="0" column="0" identificator="1126920683">
+                                <input type="text" class="input-mini" id="input">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <a style="float: left; margin-top:10px;margin-right:10px" href="#">добавить операцию</a>
+
+                <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked="">
+                по умолчанию
+
+                <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                с номером <input type="text" style="margin-top:2px;margin-left:3px;width:35px;" class="input-small" id="input">
+
+                <hr> -->
+            </div>  
+            <div class="modal-footer">
+           
+            </div>
+        </div>
+        <div id="make-device" class="modal hide fade in" >
+            <div class="modal-header">
+                <button class="close" data-dismiss="modal">×</button>
+                <h3>Добавление изделия</h3>
+            </div>
+            <div class="modal-body">
+                <h4>Введите номер изделия:</h4>
+                <input type="text" class="input-xlarge" id="deviceNumber">
+                <h4>Введите наименование изделия:</h4>
+                <input type="text" class="input-xlarge" id="deviceName">
+
+            </div>
+            <div class="modal-footer">
+              <!--  <a href="#" class="btn" data-dismiss="modal">Закрыть</a>
+                <a href="#" class="btn btn-primary">Сохранить</a> -->
+            </div>
+        </div>
+          
+    </body>
+</html>
+
+

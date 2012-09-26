@@ -1,0 +1,9 @@
+Carssier-системы автоматизации автосервиса
+
+{receiptRows}
+Скидка: {totalDiscountSum}
+Итого к оплате: {totalSum}
+Наличными: {cash}
+Сдача: {rest}
+{fiscal}
+

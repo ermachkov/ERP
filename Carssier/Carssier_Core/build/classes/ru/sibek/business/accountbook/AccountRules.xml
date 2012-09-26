@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root>
+    <rules>
+        <rule name="Закрытие заказа">
+            <accounts>
+                <account number="62" type="debet"/>
+                <account number="90.1" type="credit"/>
+            </accounts>
+        </rule>
+        <rule name="Оплата наличными">
+            <accounts>
+                <account number="50" type="debet"/>
+                <account number="62" type="credit"/>
+            </accounts>
+        </rule>
+    
+        <rule name="Оплата б/наличными">
+            <accounts>
+                <account number="51" type="debet"/>
+                <account number="62" type="credit"/>
+            </accounts>
+        </rule>
+    
+        <rule name="Отпуск товара">
+            <accounts>
+                <account number="90.2" type="debet"/>
+                <account number="41" type="credit"/>
+            </accounts>
+        </rule>
+    
+        <rule name="Приход товара">
+            <accounts>
+                <account number="41" type="debet"/>
+                <account number="60" type="credit"/>
+            </accounts>
+        </rule>
+    
+        <rule name="Возврат наличных клиенту">
+            <accounts>
+                <account number="62" type="debet"/>
+                <account number="50" type="credit"/>
+            </accounts>
+        </rule>
+        
+        <rule name="Начисление зарплаты">
+            <accounts>
+                <account number="70" type="credit"/>
+                <account number="26" type="debet"/>
+                <account number="90.2" type="debet"/>
+                <account number="26" type="credit"/>
+            </accounts>
+        </rule>
+    
+        <rule name="Выплата зарплаты">
+            <accounts>
+                <account number="70" type="debet"/>
+                <account number="50" type="credit"/>
+            </accounts>
+        </rule>
+    
+        <rule name="Выдача наличных подотчет">
+            <accounts>
+                <account number="71" type="debet"/>
+                <account number="50" type="credit"/>
+            </accounts>
+        </rule>
+        
+        <rule name="Закрытие смены 90.1">
+            <accounts>
+                <account number="90.1" type="debet"/>
+                <account number="90.9" type="credit"/>
+            </accounts>
+        </rule>
+        
+        <rule name="Закрытие смены 90.2">
+            <accounts>
+                <account number="90.9" type="debet"/>
+                <account number="90.2" type="credit"/>
+            </accounts>
+        </rule>
+        
+        <rule name="Закрытие смены 90.9">
+            <accounts>
+                <account number="90.9" type="debet"/>
+                <account number="84" type="credit"/>
+                <account number="84" type="debet"/>
+                <account number="75.2" type="credit"/>
+            </accounts>
+        </rule>
+        
+        <rule name="Штраф">
+            <accounts>
+                <account number="70" type="debet"/>
+                <account number="26" type="credit"/>
+                <account number="90.2" type="credit"/>
+                <account number="26" type="debet"/>
+            </accounts>
+        </rule>
+    
+    </rules>
+</root>

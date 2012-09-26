@@ -1,0 +1,39 @@
+<html>
+    <head>
+        <script>
+            var updater = null;
+
+            function getUpdater(){
+                if(updater == null){
+                    updater = new Updater();
+                    updater.refresh();
+                }
+
+                return updater;
+            }
+
+            function Updater(){
+
+                this.update = function(){
+                    var img = new Image();
+                    img.src = "{url}?action=view&user={user}&q=" + new Date().getTime();
+                    img.onload = function(){
+                        document.getElementById("frame").src = img.src;
+                    };
+                }
+
+                this.refresh = function(){
+                    setInterval("getUpdater().update()", 250);
+                }
+
+            }
+
+        </script>
+
+    </head>
+
+    <body onLoad="getUpdater();">
+        <img src="{url}?action=view&user={user}" id="frame" />
+    </body>
+
+</html>

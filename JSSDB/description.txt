@@ -1,0 +1,38 @@
+One socket channel
+
+Server socket server
+
+Client
+Status NOT_CONNECTED
+Status CONNECTED
+sendCheckSum
+
+Server
+
+
+Server started
+Client started
+Client send packet status = NEW_REGISTER
+Server get packet status = NEW_REGISTER
+Server return server checksum
+Client get server checksum
+if server checksum == client checksum
+set status REGISTERED
+else
+Client send request FULL_UPDATE
+
+Server get request FULL_UPDATE
+Server send packet status BEGIN_FULL_UPADTE
+Client set status BEGIN_FULL_UPADTE
+Server send all objects to client packet FULL_UPDATE_PACKET
+Server send packet END_FULL_UPDATE
+Client set status END_FULL_UPDATE
+
+if server checksum == client checksum
+set status REGISTERED
+else
+Client send packet status BEGIN_FULL_UPADTE
+Client send all objects to client packet FULL_UPDATE_PACKET
+Client send packet END_FULL_UPDATE
+
+

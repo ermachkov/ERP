@@ -1,0 +1,15 @@
+#!/bin/bash
+
+curdir=`dirname $0`;
+cd $curdir;
+
+a=(`uname -m`);
+
+if [ $a == "x86_64" ]; then
+   echo "x86_64";
+   jvm/amd64/bin/java -jar Carssier_Installer.jar
+else
+   echo "i386";
+   jvm/i386/bin/java -jar Carssier_Installer.jar
+fi;
+

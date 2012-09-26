@@ -1,0 +1,257 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package org.uui.webkit;
+
+import java.util.Arrays;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.locks.LockSupport;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.SWTError;
+import org.eclipse.swt.browser.Browser;
+import org.eclipse.swt.browser.BrowserFunction;
+import org.eclipse.swt.browser.TitleEvent;
+import org.eclipse.swt.browser.TitleListener;
+import org.eclipse.swt.events.KeyEvent;
+import org.eclipse.swt.events.KeyListener;
+import org.eclipse.swt.layout.FillLayout;
+import org.eclipse.swt.widgets.*;
+import org.uui.event.EventListenerList;
+import org.uui.event.UIEvent;
+import org.uui.event.UIEventListener;
+
+/**
+ *
+ * @author developer
+ */
+public final class WebKitFrame {
+
+    private static Display display;
+    private static Shell shell;
+    private static Browser browser;
+    private WebKitExecutor wkExecutor;
+    private WebKitEventBridge wkEventBridge;
+    private static WebKitFrame self = null;
+    private BrowserFunction wkScript, wkEventScript;
+    private AtomicBoolean isExecuteOk = new AtomicBoolean();
+    private AtomicBoolean isExecuteProcessing = new AtomicBoolean();
+    private boolean isWebSocketCallback = true;
+    private boolean isFullScreenMode = false;
+    private EventListenerList listenerList = new EventListenerList();
+
+    private WebKitFrame() {
+        wkExecutor = WebKitExecutor.getInstance();
+        wkEventBridge = WebKitEventBridge.getInstance();
+    }
+
+    public static WebKitFrame getInstance() {
+        if (self == null) {
+            self = new WebKitFrame();
+        }
+
+        return self;
+    }
+    
+    public void addUIEventListener(UIEventListener listener) {
+        listenerList.add(UIEventListener.class, listener);
+    }
+
+    public void fireEvent(UIEvent evt) {
+        Object[] listeners = listenerList.getListenerList();
+        for (int i = 0; i < listeners.length; i += 2) {
+            if (listeners[i] == UIEventListener.class) {
+                ((UIEventListener) listeners[i + 1]).event(evt);
+            }
+        }
+    }
+
+    public boolean isWebSocketCallback() {
+        return isWebSocketCallback;
+    }
+
+    public void setWebSocketCallback(boolean isWebSocketCallback) {
+        this.isWebSocketCallback = isWebSocketCallback;
+    }
+
+    private boolean sendByWebSocket(String function) {
+        return WebKitWebSocketServer.send(function);
+    }
+    
+//    public boolean sendToAllByWebSocket(String function) {
+//        return WebKitWebSocketServer.sendAll(function);
+//    }
+    
+    public boolean browserExecutor(final String function)  {
+        boolean result = false;
+        if (isWebSocketCallback()) {
+            System.out.println("Try execute in browser through WebSocket" + function);
+            result = sendByWebSocket(function);
+
+        } else {
+
+            System.out.println("Try execute in browser " + function);
+            if (display == null || browser == null || function == null) {
+                return false;
+            }
+
+            if (function.equals("")) {
+                return false;
+            }
+
+            Future<Boolean> f = Executors.newSingleThreadExecutor().submit(executeInBrowser(function));
+            try {
+                //result = f.get(5, TimeUnit.SECONDS);
+                result = f.get();
+            } catch (InterruptedException | ExecutionException ex) {
+                Logger.getGlobal().log(Level.WARNING, function, ex);
+            }
+        }
+
+        return result;
+    }
+
+    private Callable<Boolean> executeInBrowser(final String function) {
+        Callable<Boolean> callable = new Callable<Boolean>() {
+
+            @Override
+            public Boolean call() throws Exception {
+                isExecuteProcessing.set(true);
+                display.syncExec(
+                        new Runnable() {
+
+                            @Override
+                            public void run() {
+                                isExecuteOk.set(browser.execute(function));
+                                System.out.println("Execute in browser " + function + " is " + isExecuteOk);
+                                isExecuteProcessing.set(false);
+                            }
+                        });
+
+                while (isExecuteProcessing.get()) {
+                    LockSupport.parkNanos(10000000);
+                }
+
+                return isExecuteOk.get();
+            }
+        };
+
+        return callable;
+    }
+
+    public void setFullScreen(final boolean isFullScreen) {
+        display.syncExec(
+                new Runnable() {
+
+                    @Override
+                    public void run() {
+                        shell.setFullScreen(isFullScreen);
+                        isFullScreenMode = isFullScreen;
+                    }
+                });
+    }
+
+    public void showFrame(String host) {
+        display = new Display();
+        shell = new Shell(display);
+
+        shell.addListener(SWT.Close, new Listener() {
+
+            @Override
+            public void handleEvent(Event event) {
+                int style = SWT.APPLICATION_MODAL | SWT.YES | SWT.NO;
+                MessageBox messageBox = new MessageBox(shell, style);
+                messageBox.setText("Вопрос");
+                messageBox.setMessage("Завершить работу?");
+                int btn = messageBox.open();
+                //event.doit = messageBox.open() == SWT.YES;
+                if(btn == SWT.YES){
+                    fireEvent(new UIEvent("{eventType:push, eventName:closeWebKitFrame}"));
+                } else {
+                    event.doit = false;
+                }
+            }
+        });
+        shell.setLayout(new FillLayout());
+
+        try {
+            browser = new Browser(shell, SWT.NONE);
+
+            browser.addTitleListener(new TitleListener() {
+
+                @Override
+                public void changed(TitleEvent event) {
+                    System.out.println("TitleEvent: " + event.title);
+                    shell.setText(event.title);
+                }
+            });
+
+            wkEventScript = new WebKitScript(browser, "JavaEventBridge");
+            ((WebKitScript) wkEventScript).addWebKitEventListener(new WebKitEventListener() {
+
+                @Override
+                public Object wkEvent(WebKitEvent evt) {
+                    System.out.println(Arrays.toString(evt.getEvent()));
+                    return wkEventBridge.execute(evt.getEvent());
+                }
+            });
+
+            wkScript = new WebKitScript(browser, "JavaBridge");
+            ((WebKitScript) wkScript).addWebKitEventListener(new WebKitEventListener() {
+
+                @Override
+                public Object wkEvent(WebKitEvent evt) {
+                    System.out.println(Arrays.toString(evt.getEvent()));
+                    return wkExecutor.execute(evt.getEvent());
+                }
+            });
+
+            browser.setUrl(host);
+            Logger.getGlobal().log(Level.INFO, "Try load from host {0}", host);
+
+        } catch (SWTError e) {
+            System.out.println("Could not instantiate Browser: " + e.getMessage());
+            display.dispose();
+            return;
+        }
+
+        browser.addKeyListener(new KeyListener() {
+
+            @Override
+            public void keyPressed(KeyEvent ke) {
+                //
+            }
+
+            @Override
+            public void keyReleased(KeyEvent ke) {
+                if (ke.keyCode == SWT.F5) {
+                    browser.refresh();
+                }
+                
+                if (ke.keyCode == SWT.F11) {
+                    setFullScreen(!isFullScreenMode);
+                }
+            }
+        });
+
+        shell.open();
+    }
+
+    public Browser getBrowser() {
+        return browser;
+    }
+
+    public Display getDisplay() {
+        return display;
+    }
+
+    public Shell getShell() {
+        return shell;
+    }
+}

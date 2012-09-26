@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<card name="Колесо">
+	<operation>
+		<name>Заготовительная</name>
+		<description>Заготовка ст 3 h20 ГОСТ 19903</description>
+	</operation>
+
+	<operation>
+		<name>Плазма</name>
+		<description>Вырезать заготовку согласно чертежу</description>
+		<link>http://3dgroup.3dn.ru/_ld/0/98.jpg</link>
+		<time>0,09</time>
+			<workers>
+			<worker>
+				<post>Cлесарь</post>
+				<category>3</category>
+				<price>100</price>
+			</worker>
+				<worker>
+				<post>HHHCлесарь</post>
+				<category>83</category>
+				<price>1000</price>
+			</worker>				
+			</workers>
+		<devices>
+		<device>
+			<devicename>Плазморез</devicename>
+			<code>ДП 9.200.031</code>
+		</device>
+		</devices>
+	</operation>	
+
+	<operation>
+		<name>Слесарная</name>
+		<description>Зачистка кругом от окалины,наплывов металла</description>
+		<time>0,02</time>
+			<workers>
+			<worker>
+				<post>Cлесарь</post>
+				<category>3</category>
+				<price>100</price>
+			</worker>			
+			</workers>
+		<devices>
+		<device>
+			<devicename>Круг</devicename>
+			<code>ДП 8.250.031</code>
+		</device>
+		</devices>
+	</operation>
+
+	<operation>
+		<name>Токарная</name>
+		<description>Проточить диаметр153 как чисто(150 мин)</description>
+		<time>0,20</time>
+			<workers>
+			<worker>
+				<post>Токарь</post>
+				<category>3</category>
+				<price>100</price>
+			</worker>			
+			</workers>
+		<devices>
+		<device>
+			<devicename>Токарный станок</devicename>
+			<code>ДП 3.290.031</code>
+		</device>
+		</devices>
+	</operation>
+
+	<operation>
+		<name>Фрезерная</name>
+		<description>
+Установить заготовку на поворотный стол, последовательно фрезеровать по "спицам" и внетреннему диаметру 120 с двух сторон фаску 3х45град
+		</description>
+		<time>0,30</time>
+			<workers>
+			<worker>
+				<post>Фрезеровщик</post>
+				<category>4</category>
+				<price>100</price>
+			</worker>			
+			</workers>
+		<devices>
+		<device>
+			<devicename>Фрезерный станок</devicename>
+			<code>ДП 3.290.031</code>
+		</device>
+		</devices>
+	</operation>
+
+	<operation>
+		<name>Слесарная</name>
+		<description>Зачистка после фрезеровки заусенцев и острых кромок, заправить R2 на фасках</description>
+		<time>0,02</time>
+			<workers>
+			<worker>
+				<post>Cлесарь</post>
+				<category>3</category>
+				<price>100</price>
+			</worker>			
+			</workers>
+		<devices>
+		<device>
+			<devicename>Круг</devicename>
+			<code>ДП 8.250.031</code>
+		</device>
+		</devices>
+	</operation>
+
+	<operation>
+		<name>Слесарная</name>
+		<description>Выдавить на прессе деталь согласно чертежу, зачистить заусенцы кругом</description>
+		<link>http://3dgroup.3dn.ru/_ld/0/98.jpg</link>
+		<time>0,03</time>
+			<workers>
+			<worker>
+				<post>Cлесарь</post>
+				<category>3</category>
+				<price>100</price>
+			</worker>			
+			</workers>
+		<devices>
+		<device>
+			<devicename>Круг</devicename>
+			<code>ДП 8.250.031</code>
+		</device>
+		<device>
+			<devicename>Пресс"</devicename>
+			<code>ДП 8.250.031</code>
+		</device>
+		</devices>
+	</operation>
+
+	<operation>
+		<name>Токарная</name>
+		<description>Установить заготовку в патрон, расточить</description>
+		<time>0,20</time>
+			<workers>
+			<worker>
+				<post>Токарь</post>
+				<category>4</category>
+				<price>100</price>
+			</worker>			
+			</workers>
+		<devices>
+		<device>
+			<devicename>Токарный станок</devicename>
+			<code>ДП 3.290.031</code>
+		</device>
+		</devices>
+	</operation>
+
+	<operation>
+		<name>Слесарная</name>
+		<description>Зачистить по "спицам" острые кромки</description>
+		<time>0,01</time>
+			<workers>
+			<worker>
+				<post>Cлесарь</post>
+				<category>3</category>
+				<price>100</price>
+			</worker>			
+			</workers>
+		<devices>
+		<device>
+			<devicename>Круг</devicename>
+			<code>ДП 8.250.031</code>
+		</device>
+		</devices>
+	</operation>
+</card>

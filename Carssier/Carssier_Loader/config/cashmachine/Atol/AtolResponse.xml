@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<errors>
+    <error code="0x00" message="Ошибок нет" />
+    <error code="0x01" message="Контрольная лента обработана без ошибок" />
+    <error code="0x08" message="Неверная цена (сумма)" />
+    <error code="0x0A" message="Неверное количество" />
+    <error code="0x0B" message="Переполнение счетчика наличности" />
+    <error code="0x0C" message="Невозможно сторно последней операции" />
+    <error code="0x0D" message="Сторно по коду невозможно (в чеке зарегистрировано меньшее количество товаров с указанным кодом)" />
+    <error code="0x0E" message="Невозможен повтор последней операции" />
+    <error code="0x0F" message="Повторная скидка на операцию невозможна" />
+    <error code="0x10" message="Скидка/надбавка на предыдущую операцию невозможна" />
+    <error code="0x11" message="Неверный код товара" />
+    <error code="0x12" message="Неверный штрих-код товара" />
+    <error code="0x13" message="Неверный формат" />
+    <error code="0x14" message="Неверная длина" />
+    <error code="0x15" message="ККМ заблокирована в режиме ввода даты" />
+    <error code="0x16" message="Требуется подтверждение ввода даты" />
+    <error code="0x18" message="Нет больше данных для передачи ПО ККМ" />
+    <error code="0x19" message="Нет подтверждения или отмены продажи" />
+    <error code="0x1A" message="Отчет с гашением прерван. Вход в режим невозможен." />
+    <error code="0x1B" message="Отключение контроля наличности невозможно (не настроены необходимые типы оплаты)." />
+    <error code="0x1E" message="Вход в режим заблокирован" />
+    <error code="0x1F" message="Проверьте дату и время" />
+    <error code="0x20" message="Дата и время в ККМ меньше чем в ЭКЛЗ" />
+    <error code="0x21" message="Невозможно закрыть архив" />
+    <error code="0x3D" message="Товар не найден" />
+    <error code="0x3E" message="Весовой штрих-код с количеством != 1.000" />
+    <error code="0x3F" message="Переполнение буфера чека" />
+    <error code="0x40" message="Недостаточное количество товара" />
+    <error code="0x41" message="Сторнируемое количество больше проданного" />
+    <error code="0x42" message="Заблокированный товар не найден в буфере чека" />
+    <error code="0x43" message="Данный товар не продавался в чеке, сторно невозможно " />
+    <error code="0x44" message="Memo PlusTM 3TM заблокировано с ПК" />
+    <error code="0x45" message="Ошибка контрольной суммы таблицы настроек Memo PlusTM 3TM" />
+    <error code="0x46" message="Неверная команда от ККМ" />
+    <error code="0x66" message="Команда не реализуется в данном режиме ККМ" />
+    <error code="0x67" message="Нет бумаги" />
+    <error code="0x68" message="Нет связи с принтером чеков" />
+    <error code="0x69" message="Механическая ошибка печатающего устройства" />
+    <error code="0x6A" message="Неверный тип чека" />
+    <error code="0x6B" message="Нет больше строк картинки" />
+    <error code="0x6C" message="Неверный номер регистра" />
+    <error code="0x6D" message="Недопустимое целевое устройство" />
+    <error code="0x6E" message="Нет места в массиве картинок" />
+    <error code="0x6F" message="Неверный номер картинки / картинка отсутствует" />
+    <error code="0x70" message="Сумма сторно больше, чем было получено данным типом оплаты" />
+    <error code="0x71" message="Сумма не наличных платежей превышает сумму чека" />
+    <error code="0x72" message="Сумма платежей меньше суммы чека" />
+    <error code="0x73" message="Накопление меньше суммы возврата или аннулирования" />
+    <error code="0x75" message="Переполнение суммы платежей" />
+    <error code="0x76" message="(зарезервировано)" />
+    <error code="0x7A" message="Данная модель ККМ не может выполнить команду" />
+    <error code="0x7B" message="Неверная величина скидки / надбавки" />
+    <error code="0x7C" message="Операция после скидки / надбавки невозможна" />
+    <error code="0x7D" message="Неверная секция" />
+    <error code="0x7E" message="Неверный вид оплаты" />
+    <error code="0x7F" message="Переполнение при умножении" />
+    <error code="0x80" message="Операция запрещена в таблице настроек" />
+    <error code="0x81" message="Переполнение итога чека" />
+    <error code="0x82" message="Открыт чек аннулирования – операция невозможна" />
+    <error code="0x84" message="Переполнение буфера контрольной ленты" />
+    <error code="0x86" message="Вносимая клиентом сумма меньше суммы чека" />
+    <error code="0x87" message="Открыт чек возврата – операция невозможна" />
+    <error code="0x88" message="Смена превысила 24 часа" show_on_popup="true" />
+    <error code="0x89" message="Открыт чек продажи – операция невозможна" />
+    <error code="0x8A" message="Переполнение ФП" />
+    <error code="0x8C" message="Неверный пароль" />
+    <error code="0x8D" message="Буфер контрольной ленты не переполнен" />
+    <error code="0x8E" message="Идет обработка контрольной ленты" />
+    <error code="0x8F" message="Обнуленная касса (повторное гашение невозможно)" />
+    <error code="0x91" message="Неверный номер таблицы" />
+    <error code="0x92" message="Неверный номер ряда" />
+    <error code="0x93" message="Неверный номер поля" />
+    <error code="0x94" message="Неверная дата" />
+    <error code="0x95" message="Неверное время" />
+    <error code="0x96" message="Сумма чека по секции меньше суммы сторно" />
+    <error code="0x97" message="Подсчет суммы сдачи невозможен" />
+    <error code="0x98" message="В ККМ нет денег для выплаты" />
+    <error code="0x9A" message="Чек закрыт – операция невозможна" />
+    <error code="0x9B" message="Чек открыт – операция невозможна" />
+    <error code="0x9C" message="Смена открыта, операция невозможна" />
+    <error code="0x9D" message="ККМ заблокирована, ждет ввода пароля доступа к ФП" />
+    <error code="0x9E" message="Заводской номер уже задан" />
+    <error code="0x9F" message="Количество перерегистраций не может быть более 4" />
+    <error code="0xA0" message="Ошибка Ф.П." />
+    <error code="0xA2" message="Неверная смена" />
+    <error code="0xA3" message="Неверный тип отчета" />
+    <error code="0xA4" message="Недопустимый пароль" />
+    <error code="0xA5" message="Недопустимый заводской номер ККМ" />
+    <error code="0xA6" message="Недопустимый РНМ" />
+    <error code="0xA7" message="Недопустимый ИНН" />
+    <error code="0xA8" message="ККМ не фискализирована" />
+    <error code="0xA9" message="Не задан заводской номер" />
+    <error code="0xAA" message="Нет отчетов" />
+    <error code="0xAB" message="Режим не активизирован" />
+    <error code="0xAC" message="Нет указанного чека в КЛ" />
+    <error code="0xAD" message="Нет больше записей КЛ" />
+    <error code="0xAE" message="Некорректный код или номер кода защиты ККМ" />
+    <error code="0xB0" message="Требуется выполнение общего гашения" />
+    <error code="0xB1" message="Команда не разрешена введенными кодами защиты ККМ" />
+    <error code="0xB2" message="Невозможна отмена скидки/надбавки" />
+    <error code="0xB3" message="Невозможно закрыть чек данным типом оплаты (в чеке присутствуют операции без контроля наличных)" />
+    <error code="0xBA" message="Ошибка обмена с фискальным модулем" />
+    <error code="0xBE" message="Необходимо провести профилактические работы" />
+    <error code="0xC8" message="Нет устройства, обрабатывающего данную команду" />
+    <error code="0xC9" message="Нет связи с внешним устройством" />
+    <error code="0xCA" message="Ошибочное состояние ТРК" />
+    <error code="0xCB" message="Больше одной регистрации в чеке" />
+    <error code="0xCC" message=" Ошибочный номер ТРК" />
+    <error code="0xCD" message="Неверный делитель" />
+    <error code="0xCF" message="В ККМ произведено 20 активизаций" />
+    <error code="0xD0" message="Активизация данной ЭКЛЗ в составе данной ККМ невозможна" />
+    <error code="0xD1" message="Перегрев головки принтера" />
+    <error code="0xD2" message="Ошибка обмена с ЭКЛЗ на уровне интерфейса I2C" />
+    <error code="0xD3" message="Ошибка формата передачи ЭКЛЗ" />
+    <error code="0xD4" message="Неверное состояние ЭКЛЗ" />
+    <error code="0xD5" message="Неисправимая ошибка ЭКЛЗ" />
+    <error code="0xD6" message="Авария крипто-процессора ЭКЛЗ" />
+    <error code="0xD7" message="Исчерпан временной ресурс ЭКЛЗ" />
+    <error code="0xD8" message="ЭКЛЗ переполнена" />
+    <error code="0xD9" message="В ЭКЛЗ переданы неверная дата или время" />
+    <error code="0xDA" message="В ЭКЛЗ нет запрошенных данных" />
+    <error code="0xDB" message="Переполнение ЭКЛЗ (итог чека)" />
+    <error code="0xDC" message="Буфер переполнен" />
+    <error code="0xDD" message="Невозможно напечатать вторую фискальную копию" />
+</errors>

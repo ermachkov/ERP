@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="744.09448819"
+   height="1052.3622047"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.1 r9760"
+   sodipodi:docname="close.svg"
+   inkscape:export-filename="/home/developer/NetBeansProjects/SAAS/Carssier_Loader/ui/img/tab/close.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="13.973585"
+     inkscape:cx="68.436403"
+     inkscape:cy="958.2268"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     showguides="true"
+     inkscape:guide-bbox="true"
+     inkscape:window-width="1366"
+     inkscape:window-height="717"
+     inkscape:window-x="0"
+     inkscape:window-y="26"
+     inkscape:window-maximized="1">
+    <sodipodi:guide
+       orientation="1,0"
+       position="76.78774,971.61896"
+       id="guide2987" />
+    <sodipodi:guide
+       orientation="0,1"
+       position="82.083446,960.16878"
+       id="guide2989" />
+    <sodipodi:guide
+       orientation="0,1"
+       position="68.271672,973.90899"
+       id="guide2991" />
+    <sodipodi:guide
+       orientation="0,1"
+       position="68.84418,947.14421"
+       id="guide2993" />
+    <sodipodi:guide
+       orientation="1,0"
+       position="63.405347,971.5474"
+       id="guide2995" />
+    <sodipodi:guide
+       orientation="1,0"
+       position="89.382933,969.1858"
+       id="guide2997" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       sodipodi:type="arc"
+       style="fill:#999999;fill-rule:evenodd;stroke:none"
+       id="path2985"
+       sodipodi:cx="85.35714"
+       sodipodi:cy="84.147896"
+       sodipodi:rx="15.357142"
+       sodipodi:ry="14.642858"
+       d="m 100.71428,84.147896 a 15.357142,14.642858 0 1 1 -30.714283,0 15.357142,14.642858 0 1 1 30.714283,0 z"
+       transform="matrix(0.45581397,0,0,0.47804877,37.81889,51.83809)"
+       inkscape:export-filename="/home/developer/NetBeansProjects/SAAS/Carssier_Loader/ui/img/tab/path3003.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <g
+       id="g3792"
+       transform="matrix(0.73749028,0,0,0.73749028,20.241653,24.304573)"
+       inkscape:export-filename="/home/developer/NetBeansProjects/SAAS/Carssier_Loader/ui/img/tab/path3003.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <path
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="/home/developer/NetBeansProjects/SAAS/Carssier_Loader/ui/img/tab/path3003.png"
+         inkscape:connector-curvature="0"
+         id="path3001"
+         d="m 72.565488,96.129393 8.086686,-8.08668"
+         style="fill:none;stroke:#ffffff;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:connector-curvature="0"
+         id="path3003"
+         d="m 72.565488,88.042713 8.086686,8.08668"
+         style="fill:none;stroke:#ffffff;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+    </g>
+  </g>
+</svg>

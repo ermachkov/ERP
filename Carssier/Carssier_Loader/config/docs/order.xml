@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <document>
+    <owner type="Partner" isGet="true" isSet="true" />
+    <partner type="Partner" isGet="true" isSet="true" />
+    <number type="long" isGet="true" isSet="true" />
+    <date type="Date" format="dd.MM.yyyy HH:mm:ss" isGet="true" isSet="true" />
+    <name type="String" isGet="true" isSet="true" />
+    <sign type="String" isGet="true" isSet="true" />
+    <workStatuses type="HashMap" isGet="true" isSet="false">
+      <workStatus key="Open" value="Открыт" />
+      <workStatus key="In work" value="В работе" />
+      <workStatus key="Draft" value="Черновик" />
+      <workStatus key="Close" value="Закрыт" />
+    </workStatuses>
+    <currentWorkStatus type="String" default="Open" isGet="true" isSet="true" />
+    <payStatuses type="HashMap" isGet="true" isSet="false">
+      <payStatus key="Not paid" value="Не оплачен" />
+      <payStatus key="Partially paid" value="Частично оплачен" />
+      <payStatus key="Fully paid" value="Полностью оплачен" />
+    </payStatuses>
+    <currentPayStatus type="String" default="Not paid" isGet="true" isSet="true" />
+    <payTypes type="HashMap" isGet="true" isSet="false">
+      <payType key="Cash" value="Наличные" />
+      <payType key="Non-cash payment" value="Безналичный расчет" />
+      <payType key="Left" value="Левые" />
+    </payTypes>
+    <currentPayType type="String" default="Cash" isGet="true" isSet="true" />
+  </document>
+
+  <print size="A4">
+    <field>Поставщик: $owner</field>
+    <field>Покупатель: $partner</field>
+    <table>
+      <head>
+        <tr>
+          <td>Номер п/п</td>
+          <td>Наименование</td>
+          <td>Кол-во</td>
+          <td>Цена</td>
+          <td>Скидка в %</td>
+          <td>Сумма</td>
+        </tr>
+      </head>
+    </table>
+  </print>
+</root>
+

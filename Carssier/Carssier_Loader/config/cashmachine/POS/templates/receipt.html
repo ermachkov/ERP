@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+    <body>
+        <div align="center"><strong>Carssier</strong>-системы автоматизации автосервиса</div>
+
+        <div style='font-size:70%;'>
+            {receiptRows}
+        </div>
+
+        <div style="width: 100%; height: 5px; border-bottom: 1px dotted black;"></div>
+
+        <div style="font-size: 70%;">
+            <div style="width: 100%; height: 15px;">
+                <div style="float: left;">
+                    <strong>Скидка:</strong>
+                </div>
+                <div style="float: right;">
+                    {totalDiscountSum}
+                </div>
+            </div>
+
+            <div style="width: 100%; height: 15px;">
+                <div style="float: left;">
+                    <strong>Итого к оплате:</strong>
+                </div>
+                <div style="float: right;">
+                    {totalSum}
+                </div>
+            </div>
+
+            <div style="width: 100%; height: 15px;">
+                <div style="float: left;">
+                    <strong>Наличными:</strong>
+                </div>
+                <div style="float: right;">
+                    {cash}
+                </div>
+            </div>
+
+            <div style="width: 100%; height: 15px;">
+                <div style="float: left;">
+                    <strong>Сдача:</strong>
+                </div>
+                <div style="float: right;">
+                    {rest}
+                </div>
+            </div>
+
+            <div style="width: 100%; height: 5px; border-bottom: 1px solid black;"></div>
+            {fiscal}
+        </div>
+    </body>
+</html>

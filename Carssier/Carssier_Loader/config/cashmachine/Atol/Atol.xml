@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<commands>
+    <requests>
+        <state name="статус ККМ">
+            <request command="0, 0, 63" timeout="2000"></request>
+            <response_ok>
+                <field pos="0" value="68" name="ok" type="byte"></field>
+                <field pos="1" value="0-30" name="кассир" type="byte"></field>
+                <field pos="2" value="1-99" name="номер в зале" type="byte"></field>
+                <field pos="3-5" value="0-99" name="год / месяц / число" type="byte"></field>
+                <field pos="6-8" value="0-59" name="чч:мм:сс" type="byte"></field>
+                <field pos="9" value="0-255" name="флаги" type="bit">
+                    <bit pos="0" name="ККМ фискализирована" true="1"></bit>
+                    <bit pos="1" name="смена открыта" true="1"></bit>
+                    <bit pos="2" name="денежный ящик открыт" true="0"></bit>
+                    <bit pos="3" name="весовой датчик ЧЛ (бумага есть)" true="1"></bit>
+                    <bit pos="4" name="NaN" true="NaN"></bit>
+                    <bit pos="5" name="крышка открыта" true="1"></bit>
+                    <bit pos="6" name="NaN" true="NaN"></bit>
+                    <bit pos="7" name="напряжение на батарейки в норме" true="0"></bit>
+                </field>
+
+                <field pos="10-13" value="0-255" name="Зав. Номер" type="byte"></field>
+                <field pos="14" value="0-255" name="Модель" type="byte"></field>
+                <field pos="15-16" value="0-255" name="Версия ПО ККМ" type="byte"></field>
+                <field pos="17" value="0-255" name="Режим работы" type="byte"></field>
+                <field pos="18-19" value="0-255" name="Номер смены" type="byte"></field>
+                <field pos="20" value="0-255" name="Состояние чека" type="bit">
+                    <bit pos="0" name="чек закрыт" true="0"></bit>
+                    <bit pos="1" name="открыт чек возврата" true="1"></bit>
+                    <bit pos="2" name="NaN" true="NaN"></bit>
+                    <bit pos="3" name="NaN" true="NaN"></bit>
+                    <bit pos="4" name="NaN" true="NaN"></bit>
+                    <bit pos="5" name="NaN" true="NaN"></bit>
+                    <bit pos="6" name="NaN" true="NaN"></bit>
+                    <bit pos="7" name="NaN" true="NaN"></bit>
+                </field>
+                <field pos="21-25" value="0-255" name="Сумма чека" type="byte"></field>
+                <field pos="26" value="0-3" name="Десятичная точка" type="byte"></field>
+                <field pos="27" value="1-3" name="Порт" type="byte"></field>
+            </response_ok>
+
+        </state>
+
+        <eklz_execute name="Выполнить команду ЭКЛЗ">
+            <request command="0, 0, 175" timeout="2000"></request>
+            <response_ok>
+                <field pos="0" value="77" name="Выполнить команду ЭКЛЗ" type="byte"></field>
+                <field pos="1-7" value="0-9" name="Номер" type="byte"></field>
+            </response_ok>
+        </eklz_execute>    
+
+        <cash name="наличные в кассе">
+            <request command="0, 0, 77" timeout="2000"></request>
+            <response_ok>
+                <field pos="0" value="77" name="Наличные в кассе" type="byte"></field>
+                <field pos="1-7" value="0-9" name="Сумма" type="byte"></field>
+            </response_ok>
+
+        </cash>
+
+        <get_kkm_number name="Номер ККМ">
+            <request command="0, 0, 145, 22, 0, 0" timeout="2000"></request>
+            <response_ok>
+                <field pos="0" value="77" name="Номер ККМ" type="byte"></field>
+                <field pos="1-7" value="0-9" name="Номер" type="byte"></field>
+            </response_ok>
+
+        </get_kkm_number>
+
+        <get_eklz_number name="Номер ЭКЛЗ">
+            <request command="0, 0, 145, 28, 0, 0" timeout="2000"></request>
+            <response_ok>
+                <field pos="0" value="77" name="Номер ЭКЛЗ" type="byte"></field>
+                <field pos="1-7" value="0-9" name="Номер" type="byte"></field>
+            </response_ok>
+
+        </get_eklz_number>
+
+        <get_eklz_info name="Состояние ЭКЛЗ">
+            <request command="0, 0, 174" timeout="2000"></request>
+            <response_ok>
+                <field pos="0" value="77" name="Состояние ЭКЛЗ" type="byte"></field>
+                <field pos="1-7" value="0-9" name="Номер" type="byte"></field>
+            </response_ok>
+
+        </get_eklz_info>
+
+        <get_inn_number name="ИНН, РНМ">
+            <request command="0, 0, 145, 27, 0, 0" timeout="2000"></request>
+            <response_ok>
+                <field pos="0" value="77" name="ИНН, РНМ" type="byte"></field>
+                <field pos="1-7" value="0-9" name="Номер" type="byte"></field>
+            </response_ok>
+
+        </get_inn_number>
+        
+        <get_reciept_numbers name="Номер чека и документа">
+            <request command="0, 0, 145, 19, 0, 0" timeout="2000"></request>
+            <response_ok>
+                <field pos="0" value="77" name="Номер чека и документа" type="byte"></field>
+                <field pos="1-7" value="0-9" name="Номера" type="byte"></field>
+            </response_ok>
+
+        </get_reciept_numbers>
+
+        <last_total_sale name="последний сменный итог продаж">
+            <request command="0, 0, 88" timeout="2000"></request>
+            <response_ok>
+                <field pos="0" value="85" name="Последний сменный итог продаж" type="byte"></field>
+                <field pos="1" value="0-255" name="Код ошибки" type="byte"></field>
+                <field pos="2-8" value="0-9" name="Сумма" type="byte"></field>
+            </response_ok>
+
+        </last_total_sale>
+
+        <kkm_state name="Запрос кода состояния ККМ">
+            <request command="0, 0, 69" timeout="2000"></request>
+            <response_ok>
+                <field pos="0" value="85" name="Запрос кода состояния ККМ" type="byte"></field>
+                <field pos="1" value="0-255" name="Состояние" type="byte"></field>
+                <field pos="2" value="0-255" name="Флаги" type="byte"></field>
+            </response_ok>
+
+        </kkm_state>
+
+        <beep name="Гудок">
+            <request command="0, 0, 71" timeout="2000" />
+            <response_ok>
+                <field pos="0" value="85" name="Гудок" type="byte"></field>
+            </response_ok>
+        </beep>
+
+        <register_sale_item name="Регистрация продажи">
+            <request command="0, 0, 82, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0" timeout="2000" />
+            <response_ok>
+                <field pos="0" value="85" name="Регистрация продажи" type="byte"></field>
+                <field pos="1" value="0-255" name="Код ошибки" type="byte"></field>
+                <field pos="2" value="0" name="0" type="byte"></field>
+            </response_ok>
+        </register_sale_item>
+
+        <close_reciept_with_delivery name="Закрыть чек и начислить сдачу">
+            <request command="0, 0, 74, 00, 01, 00, 00, 00, 00, 00" timeout="2000" />
+            <response_ok>
+                <field pos="0" value="85" name="Закрыть чек и начислить сдачу" type="byte"></field>
+                <field pos="1" value="0-255" name="Код ошибки" type="byte"></field>
+                <field pos="2" value="0" name="0" type="byte"></field>
+            </response_ok>
+        </close_reciept_with_delivery>
+
+        <cancel_reciept name="Аннулирование всего чека">
+            <request command="0, 0, 89" timeout="2000" />
+            <response_ok>
+                <field pos="0" value="85" name="Аннулирование всего чека" type="byte" />
+                <field pos="1" value="0-255" name="Код ошибки" type="byte" />
+                <field pos="2" value="0" name="0" type="byte" />
+            </response_ok>
+        </cancel_reciept>
+
+        <z-report name="Z">
+            <request command="0, 0, 90" timeout="20000" />
+            <response_ok>
+                <field pos="0" value="85" name="Код ошибки" type="byte" />
+                <field pos="1" value="0-255" name="0" type="byte" />
+                <field pos="2" value="0" name="0" type="byte" />
+            </response_ok>
+        </z-report>
+
+        <z-report-to-buffer name="ZToBuffer">
+            <request command="0, 0, 180" timeout="20000" />
+            <response_ok>
+                <field pos="0" value="85" name="Код ошибки" type="byte" />
+                <field pos="1" value="0-255" name="0" type="byte" />
+                <field pos="2" value="0" name="0" type="byte" />
+            </response_ok>
+        </z-report-to-buffer>
+
+        <z-report-from-buffer name="ZFromBuffer">
+            <request command="0, 0, 181" timeout="20000" />
+            <response_ok>
+                <field pos="0" value="85" name="Код ошибки" type="byte" />
+                <field pos="1" value="0-255" name="0" type="byte" />
+                <field pos="2" value="0" name="0" type="byte" />
+            </response_ok>
+        </z-report-from-buffer>
+
+        <x-report name="X">
+            <request command="0, 0, 103, 1" timeout="20000" />
+            <response_ok>
+                <field pos="0" value="85" name="Код ошибки" type="byte" />
+                <field pos="1" value="0-255" name="0" type="byte" />
+                <field pos="2" value="0" name="0" type="byte" />
+            </response_ok>
+        </x-report>
+
+        <x-report-by-paymaster name="X-paymaster">
+            <request command="0, 0, 103, 3" timeout="20000" />
+            <response_ok>
+                <field pos="0" value="85" name="Код ошибки" type="byte" />
+                <field pos="1" value="0-255" name="0" type="byte" />
+                <field pos="2" value="0" name="0" type="byte" />
+            </response_ok>
+        </x-report-by-paymaster>
+
+        <x-report-by-section name="X-section">
+            <request command="0, 0, 103, 2" timeout="20000" />
+            <response_ok>
+                <field pos="0" value="85" name="Код ошибки" type="byte" />
+                <field pos="1" value="0-255" name="0" type="byte" />
+                <field pos="2" value="0" name="0" type="byte" />
+            </response_ok>
+        </x-report-by-section>
+
+        <x-report-hourly name="X-hourly">
+            <request command="0, 0, 103, 5" timeout="20000" />
+            <response_ok>
+                <field pos="0" value="85" name="Код ошибки" type="byte" />
+                <field pos="1" value="0-255" name="0" type="byte" />
+                <field pos="2" value="0" name="0" type="byte" />
+            </response_ok>
+        </x-report-hourly>
+
+        <money_in name="Внесение денег">
+            <request command="0, 0, 73, 0, 00, 00, 00, 00, 01" timeout="2000" />
+            <response_ok>
+                <field pos="0" value="85" name="Внесение денег" type="byte" />
+                <field pos="1" value="0-255" name="0" type="byte" />
+            </response_ok>
+        </money_in>
+
+        <print_doc_by_kpk name="Печать документа по номеру КПК">
+            <request command="0, 0, 171, 00, 00, 00, 00" timeout="2000" />
+            <response_ok>
+                <field pos="0" value="85" name="Печать документа по номеру КПК" type="byte" />
+                <field pos="1" value="0-255" name="0" type="byte" />
+            </response_ok>
+        </print_doc_by_kpk>
+
+        <money_out name="Выплата денег">
+            <request command="0, 0, 79, 0, 00, 00, 00, 00, 01" timeout="2000" />
+            <response_ok>
+                <field pos="0" value="85" name="Код ошибки" type="byte" />
+                <field pos="1" value="0-255" name="0" type="byte" />
+                <field pos="2" value="0" name="0" type="byte" />
+            </response_ok>
+        </money_out>
+
+        <open_sale_reciept name="Открыть чек для продажи">
+            <request command="0, 0, 146, 0, 1" timeout="1000" />
+            <response_ok>
+                <field pos="0" value="85" name="Открыть чек для продажи" type="byte" />
+                <field pos="1" value="0-255" name="0" type="byte" />
+                <field pos="2" value="0" name="0" type="byte" />
+            </response_ok>
+        </open_sale_reciept>
+
+        <open_return_reciept name="Открыть чек для возврата">
+            <request command="0, 0, 146, 0, 2" timeout="1000" />
+            <response_ok>
+                <field pos="0" value="85" name="Открыть чек для возврата" type="byte" />
+                <field pos="1" value="0-255" name="0" type="byte" />
+                <field pos="2" value="0" name="0" type="byte" />
+            </response_ok>
+        </open_return_reciept>
+
+        <print_string name="Печать строки">
+            <request command="0, 0, 76, 49, 51, 32, 164, 238, 169, 172, 174, 162" timeout="2000" />
+            <response_ok>
+                <field pos="0" value="85" name="Печать строки" type="byte" />
+                <field pos="1" value="0-255" name="Код ошибки" type="byte" />
+                <field pos="2" value="0" name="0" type="byte" />
+                <field pos="3" value="0" name="0" type="byte" />
+            </response_ok>
+        </print_string>
+
+        <print_field name="Печать поля">
+            <request command="0, 0, 135, 0, 1, 2, 0, 0, 0, 0, 0, 1, 0, 0, 164, 238, 169, 172, 174, 162" timeout="2000" />
+            <response_ok>
+                <field pos="0" value="85" name="Печать поля" type="byte" />
+                <field pos="1" value="0-255" name="Код ошибки" type="byte" />
+                <field pos="2" value="0" name="0" type="byte" />
+            </response_ok>
+        </print_field>
+
+        <cut_reciept name="Отрезать чек">
+            <request command="0, 0, 117, 0" timeout="2000"></request>
+            <response_ok>
+                <field pos="0" value="85" name="Отрезать чек" type="byte"></field>
+                <field pos="1" value="0-255" name="Код ошибки" type="byte"></field>
+                <field pos="2" value="0" name="" type="byte"></field>
+            </response_ok>
+
+        </cut_reciept>
+        
+        <open_shift name="Открыть смену">
+            <request command="0, 0, 154, 0" timeout="2000"></request>
+            <response_ok>
+                <field pos="0" value="85" name="Открыть смену" type="byte"></field>
+                <field pos="1" value="0-255" name="Код ошибки" type="byte"></field>
+                <field pos="2" value="0" name="" type="byte"></field>
+            </response_ok>
+
+        </open_shift>
+
+        <total_discount name="Скидка на все">
+            <request command="0, 0, 67, 0, 0, 1, 0, 00, 00, 00, 00, 00" timeout="2000"></request>
+            <response_ok>
+                <field pos="0" value="85" name="Скидка на все" type="byte"></field>
+                <field pos="1" value="0-255" name="Код ошибки" type="byte"></field>
+                <field pos="2" value="0" name="" type="byte"></field>
+            </response_ok>
+
+        </total_discount>
+
+    </requests>
+
+    <modes>
+        <mode_out name="Выход из текущего режима">
+            <request command="0, 0, 72" timeout="2000"></request>
+            <response_ok>
+                <field pos="0" value="85" name="Выход из текущего режима" type="byte"></field>
+                <field pos="1" value="0-255" name="Код ошибки" type="byte"></field>
+                <field pos="2" value="0" name="0" type="byte"></field>
+            </response_ok>
+
+        </mode_out>
+
+        <mode_register name="Режим регистрации">
+            <request command="0, 0, 86, 1, 0, 0, 0, 48" timeout="2000"></request>
+            <response_ok>
+                <field pos="0" value="85" name="Режим регистрации" type="byte"></field>
+                <field pos="1" value="0-255" name="Код ошибки" type="byte"></field>
+                <field pos="2" value="0" name="" type="byte"></field>
+            </response_ok>
+
+        </mode_register>
+
+        <mode_report_without_suppress name="Режим отчетов без гашения">
+            <request command="0, 0, 86, 2, 0, 0, 0, 48" timeout="2000"></request>
+            <response_ok>
+                <field pos="0" value="85" name="Режим отчетов без гашения" type="byte"></field>
+                <field pos="1" value="0-255" name="Код ошибки" type="byte"></field>
+                <field pos="2" value="0" name="" type="byte"></field>
+            </response_ok>
+
+        </mode_report_without_suppress>
+
+        <mode_report_with_suppress name="Режим отчетов с гашением">
+            <request command="0, 0, 86, 3, 0, 0, 0, 48" timeout="2000"></request>
+            <response_ok>
+                <field pos="0" value="85" name="Режим отчетов с гашением" type="byte"></field>
+                <field pos="1" value="0-255" name="Код ошибки" type="byte"></field>
+                <field pos="2" value="0" name="" type="byte"></field>
+            </response_ok>
+
+        </mode_report_with_suppress>
+
+        <mode_programming name="Режим программирования">
+            <request command="0, 0, 86, 4, 0, 0, 0, 48" timeout="2000"></request>
+            <response_ok>
+                <field pos="0" value="85" name="Режим программирования" type="byte"></field>
+                <field pos="1" value="0-255" name="Код ошибки" type="byte"></field>
+                <field pos="2" value="0" name="" type="byte"></field>
+            </response_ok>
+
+        </mode_programming>
+
+        <mode_fp name="Режим доступа к ФП">
+            <request command="0, 0, 86, 5, 0, 0, 0, 48" timeout="2000"></request>
+            <response_ok>
+                <field pos="0" value="85" name="Режим доступа к ФП" type="byte"></field>
+                <field pos="1" value="0-255" name="Код ошибки" type="byte"></field>
+                <field pos="2" value="0" name="" type="byte"></field>
+            </response_ok>
+
+        </mode_fp>
+
+        <mode_eklz name="Режим доступа к ЭКЛЗ">
+            <request command="0, 0, 86, 6, 0, 0, 0, 48" timeout="2000"></request>
+            <response_ok>
+                <field pos="0" value="85" name="Режим доступа к ЭКЛЗ" type="byte"></field>
+                <field pos="1" value="0-255" name="Код ошибки" type="byte"></field>
+                <field pos="2" value="0" name="" type="byte"></field>
+            </response_ok>
+
+        </mode_eklz>
+
+    </modes>
+
+</commands>

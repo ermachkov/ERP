@@ -1,0 +1,46 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package org.uui.webkit;
+
+import org.eclipse.swt.browser.Browser;
+import org.eclipse.swt.browser.BrowserFunction;
+import org.uui.event.EventListenerList;
+
+/**
+ *
+ * @author developer
+ */
+public class WebKitScript extends BrowserFunction {
+    
+    private EventListenerList listenerList = new EventListenerList();
+    //private Browser browser;
+
+    public WebKitScript(Browser browser, String name) {
+        super(browser, name);
+        //this.browser = browser;
+    }
+
+    @Override
+    public Object function(Object[] os) {
+        Object result = fireWebKitEvent(new WebKitEvent(os));
+        return result;
+    }
+    
+    public void addWebKitEventListener(WebKitEventListener listener) {
+        listenerList.add(WebKitEventListener.class, listener);
+    }
+    
+    private Object fireWebKitEvent(WebKitEvent evt) {
+        Object wkEventResult = null;
+        Object[] listeners = listenerList.getListenerList();
+        for (int i = 0; i < listeners.length; i += 2) {
+            if (listeners[i] == WebKitEventListener.class) {
+                wkEventResult = ((WebKitEventListener) listeners[i + 1]).wkEvent(evt);
+            }
+        }
+        
+        return wkEventResult;
+    }
+}

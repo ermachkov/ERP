@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>Carssier :: Boris</title>
+        <script>
+            var sess = "{sess}";
+        </script>
+        <script type="text/javascript" src="sites/boris/js/jquery.core.js"></script>
+        <script type="text/javascript" src="sites/boris/js/jquery-ui-1.8.16.custom.min.js"></script>
+        <script type="text/javascript" src="sites/boris/js/jquery-ui-i18n.min.js"></script>
+        <script type="text/javascript" src="sites/boris/js/jquery.ui.datepicker-ru.js"></script>
+        <script type="text/javascript" src="sites/boris/js/jquery.json-2.3.min.js"></script>
+        <script type="text/javascript" src="sites/boris/js/splitter.js"></script>
+        <script language="javascript" src="sites/boris/js/core.js"></script>
+        <link type="text/css" href="sites/boris/css/ui-darkness/jquery-ui-1.8.16.custom.css" rel="stylesheet" />
+        <link type="text/css" href="sites/boris/css/core.css" rel="stylesheet" />
+        <link href="img/icons/pumping.png" rel="icon" type="image/png"/>
+    </head>
+    <body onResize="getUICore().resize();">
+        <div id="mainPanel">
+            <div id="header"><img src="img/skin/light_logo.png" /></div>
+            <div id="redLine"></div>
+            <div id="grayLine"></div>
+            <div id="userPanel" align="right">{userPanel}</div>
+            {mainFrame}
+        </div>
+    </body>
+</html>

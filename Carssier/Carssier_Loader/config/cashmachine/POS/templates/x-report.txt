@@ -1,0 +1,16 @@
+Carssier</strong>-системы автоматизации автосервиса
+
+X-отчет #{number} {date}
+
+Продаж {salesCount}
+Внесений {moneyInCount}
+Выплат {moneyOutCount}
+Возвратов {returnCount}
+Сторно {stornoCount}
+Аннулировано {cancelCount}
+Выплат {moneyOut}
+Внесений {moneyIn}
+Наличные {cash}
+Продаж {sales}
+Наличных итого {totalCash}
+Сумма продаж итого {totalSales}

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+    <servlet>
+        <servlet-name>EntryPoint</servlet-name>
+        <servlet-class>ru.sibek.carssier.www.EntryPoint</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>TomcatWebSocket</servlet-name>
+        <servlet-class>ru.sibek.carssier.www.TomcatWebSocket</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ExchangePoint</servlet-name>
+        <servlet-class>ru.sibek.carssier.www.ExchangePoint</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CaptchaServlet</servlet-name>
+        <servlet-class>ru.sibek.carssier.www.CaptchaServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EntryPoint</servlet-name>
+        <url-pattern>/formula</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EntryPoint</servlet-name>
+        <url-pattern>/boris</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TomcatWebSocket</servlet-name>
+        <url-pattern>/websocket</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ExchangePoint</servlet-name>
+        <url-pattern>/boris/exchange</url-pattern>
+        <url-pattern>/formula/exchange</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CaptchaServlet</servlet-name>
+        <url-pattern>/Captcha</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+</web-app>

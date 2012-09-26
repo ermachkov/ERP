@@ -1,0 +1,29 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package org.uui.webkit;
+
+/**
+ *
+ * @author Dmitry Zubanov zubanov@gmail.com
+ */
+public class WebKitException extends Exception{
+    
+    private String message;
+    
+    public WebKitException(String message){
+        this.message = message;
+    }
+
+    public String toString() {
+        return "WebKitException{" + "message=" + message + '}';
+    }
+
+    @Override
+    public String getMessage() {
+        return super.getMessage() + "\n" + message;
+    }
+    
+    
+}

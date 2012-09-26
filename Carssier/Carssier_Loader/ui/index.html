@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>Carssier</title>
+        <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+        <script type="text/javascript" src="js/jquery-ui-1.8.20.custom.min.js"></script>
+        <script type="text/javascript" src="js/jquery-ui-i18n.min.js"></script>
+        <script type="text/javascript" src="js/jquery.ui.datepicker-ru.js"></script>
+        <script type="text/javascript" src="js/jquery.json-2.3.min.js"></script>
+        <script type="text/javascript" src="js/splitter.js"></script>
+        <script language="javascript" src="js/core.js"></script>
+        <script language="javascript" src="js/fileupload.js"></script>
+        <script type="text/javascript" src="js/tiny_mce/jquery.tinymce.js"></script>
+
+        <link type="text/css" href="css/smoothness/jquery-ui-1.8.20.custom.css" rel="stylesheet" />
+        <link href="css/core.css" rel="stylesheet" type="text/css">
+        <link href="img/icons/pumping.png" rel="icon" type="image/png"/>
+
+        <script>
+            var sess = "{sess}";
+        </script>
+
+        <style>
+            .ui-progressbar-value { background-image: url(img/progress/blue.gif); }
+        </style>
+
+    </head>
+    <body onResize="getUICore().resize();" style="overflow:hidden;" 
+          oncontextmenu="getUICore().showContextMenu();return false;">
+        <div id="loggerPanel">
+            <div style="width:100%;font-size: 85%; font-weight: bold; background-color: lightgray; padding:3px;">Лог</div>
+            <div id="loggerInfo"></div>
+        </div>
+        <div id="lockPanel">
+            <table width="100%" height="100%">
+                <tr>
+                    <td valign="middle" align="center" id="lockProgressBar">
+                       <img src="img/progress/wait_circle.gif"/>
+                       <!-- 
+                       <div class="wrapper">
+                            <div class="spinner pie animation-duration"></div>
+                            <div class="filler pie animation-duration"></div>
+                            <div class="mask animation-duration"></div>
+                        </div>
+                       -->
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div id="contextMenuContainer"></div>
+        <div id="ribbon">
+            <div id="ribbon_top_panel"></div>
+            <div id="ribbon_bottom_panel">
+                <div style="height:100%; float:left;" id="ribbon_operation_panel"></div>
+                <div style="float:right; height: 100%;" id="appInfoPanel"></div>
+            </div>
+        </div>
+        <div id="tabContainer"></div>
+        <div id="main">
+            <div class="tabPanel" id="tabPanelContainer">
+                <div style="width:100%; height:100%">
+                    <div id="navigationPanel" style="width:100%; height:30px;"></div>
+                    <div style="width:100%; height:94%;">
+                        <div style="width:96%;height:100%;overflow:auto;float:left;">
+                            <div id="workPanel" style="width:100%;height:100%;overflow: auto;"></div>
+                        </div>
+                        <div class="rightPanelButtonsConatainer" style="width:3%;height:100%;float:left;"></div>
+                    </div>
+                </div>
+            </div>
+            <div id="status">
+                <table width="100%" cellpadding="2" cellspacing="0" style="height:100%;">
+                    <tr>
+                        <td align="left" valign="middle" width="75%" style="height:30px;">
+                            <div id="statusInfoPanel_1" class="statusInfoPanel" style="height: 100%;">&nbsp;</div>
+                        </td>
+                        <!--
+                        <td align="left" valign="middle" width="25%">
+                            <div id="statusInfoPanel_2" class="statusInfoPanel">&nbsp;</div>
+                        </td>
+                        <td align="left" valign="middle" width="25%">
+                            <div id="statusInfoPanel_3" class="statusInfoPanel">&nbsp;</div>
+                        </td>
+                        -->
+                        <td width="25%"><div id="progressbar" style="height:18px;"></div></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <iframe id="printFrame" name="printFrame"></iframe>
+    </body>
+</html>

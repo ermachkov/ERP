@@ -1,0 +1,19 @@
+#!/bin/bash
+
+host="http://192.168.0.210:9998";
+user="formula"
+
+while :
+do
+   result=`curl "$host/videoInput?user=$user"`
+
+   if [ $result == "true" ];
+      then 
+         touch request;
+      else 
+         rm request
+   fi
+
+   sleep 1;
+
+done

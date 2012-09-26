@@ -1,0 +1,64 @@
+#!/bin/bash
+
+killall ffmpeg
+
+rm /home/$USER/.saas/app/ui/img/stream/*.jpg
+
+font=/home/$USER/.saas/app/fonts/Ubuntu-B.ttf
+frame="/home/$USER/.saas/app/ui/img/stream/frame_%d.jpg";
+
+mic="-f alsa -ac 1 -i hw:1";
+
+mic_device="/dev/dsp1"
+if [ -e "$mic_device" ]
+then
+  mic="-f oss -i /dev/dsp1";
+fi
+
+while :
+do
+        d=`date +"%H:%M:%S"`
+	dirYear=`date +"%Y"`
+	dirMonth=`date +"%m"`
+        dirDay=`date +"%d"`
+
+        mkdir -p "/home/$USER/.saas/app/ui/img/stream/clips/${dirYear}-${dirMonth}-${dirDay}";
+	video="/home/$USER/.saas/app/ui/img/stream/clips/${dirYear}-${dirMonth}-${dirDay}/${d}.mp4";
+
+        case $1 in
+            all)
+                ffmpeg -s 352x288 -r 30 -f video4linux2 -i /dev/video0 \
+                $mic \
+                -acodec libfaac -ac 2 -ab 128k -ar 44100 \
+                -vf "drawtext=fontfile=$font: \
+                text='Carssier \%T': fontcolor=white@0.8: x=7: y=270" \
+                -vcodec libx264 \
+                -preset:v ultrafast -level 3.1 \
+                -t 60 -b:v 1200k -bt 1200k -maxrate 1200k -threads auto -r 15 $video \
+                -vf "drawtext=fontfile=$font: \
+                text='Carssier \%T': fontcolor=white@0.8: x=7: y=270" \
+                -t 60 -r 4 $frame
+            ;;
+
+            nosound)
+                ffmpeg -s 352x288 -r 30 -f video4linux2 -i /dev/video0 \
+                -vf "drawtext=fontfile=$font: \
+                text='Carssier \%T': fontcolor=white@0.8: x=7: y=270" \
+                -vcodec libx264 \
+                -preset:v ultrafast -level 3.1 \
+                -t 60 -b:v 1200k -bt 1200k -maxrate 1200k -threads auto -r 15 $video \
+                -vf "drawtext=fontfile=$font: \
+                text='Carssier \%T': fontcolor=white@0.8: x=7: y=270" \
+                -t 60 -r 4 $frame
+            ;;
+
+            webcam)
+                ffmpeg -s 352x288 -r 30 -f video4linux2 -i /dev/video0 \
+                -vf "drawtext=fontfile=$font: \
+                text='Carssier \%T': fontcolor=white@0.8: x=7: y=270" \
+                -t 60 -r 4 $frame
+            ;;
+        esac;
+done
+
+

@@ -1,0 +1,65 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package org.uui.webkit;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+/**
+ *
+ * @author developer
+ */
+public class WebKitExecutor {
+
+    private static WebKitExecutor self = null;
+
+    public static synchronized WebKitExecutor getInstance() {
+        if (self == null) {
+            self = new WebKitExecutor();
+        }
+
+        return self;
+    }
+
+    public Object[] execute(Object[] object) {
+        WebKitResult result = null;
+        try {
+            Class cls = Class.forName(object[0].toString());
+            for (Method method : cls.getMethods()) {
+                if (method.getName().equals(object[1])) {
+                    Object instance = cls.newInstance();
+                    if (object.length > 2) {
+                        if (object[2] == null) {
+                            result = (WebKitResult) method.invoke(instance, new Object[]{});
+                            break;
+                            
+                        } else {
+                            
+                            if(object[2] instanceof Object[]){
+                                result = (WebKitResult) method.invoke(instance, (Object[]) object[2]);
+                                break;
+                                
+                            } else {
+                                result = (WebKitResult) method.invoke(instance, object[2]);
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (ClassNotFoundException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+            Logger.getGlobal().log(Level.WARNING, Arrays.toString(object), e);
+        }
+
+        if (result == null) {
+            return new Object[]{};
+        } else {
+            return result.getAsArray();
+        }
+    }
+}

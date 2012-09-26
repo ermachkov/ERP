@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE nbsp [<!ENTITY nbsp "&#160;">]>
+<html>
+<div style="text-align:center; font-family:Arial, Helvetica, sans-serif; font-size:11pt;">
+АКТ № {} / {}
+</div>
+<div style="text-align:left; font-family:Arial, Helvetica, sans-serif; font-size:11pt;">
+Исполнитель (кратко): {org.ubo.document.Order.getSupplier().getShortName()},<br/>
+Исполнитель (полное имя): {org.ubo.document.Order.getSupplier().getFullName()},<br/>
+  ИНН: {}, ОГРН: {} <br/>
+  Адрес: {} <br/>
+  Телефон: {}, <br/>
+  E-mail: {} </div>
+<div style="text-align:left; font-family:Arial, Helvetica, sans-serif; font-size:11pt;">
+{ru.sibek.business.print.ACTHandler.getHTMLTable()}
+</div>
+
+<div style="text-align:left; font-family:Arial, Helvetica, sans-serif; font-size:11pt; padding-top:15pt;">
+Всего оказано услуг на сумму: <b>{ru.sibek.business.print.ACTHandler.getTotalSumString()}</b>
+</div>
+<div style="text-align:left; font-family:Arial, Helvetica, sans-serif; font-size:11pt;">
+Вышеперечисленные услуги выполнены полностью и в срок. Претензий по объему, качеству и срокам оказания услуг не имею.
+</div>
+
+<div style="text-align:left; font-family:Arial, Helvetica, sans-serif; font-size:11pt;">
+Заказчик
+{}
+<br/>
+  Представитель заказчика:
+  <br/>
+  {} ______________
+  <br/>
+  Регистрационный номер автомобиля: {}
+  <br/>
+Доверенность / Талон: {} <br/>
+Дата выдачи: {}<br/>
+</div>
+
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td width="25%"><div align="right">Исполнитель</div></td>
+        <td width="25%">&nbsp;</td>
+        <td width="25%"><div align="right">Заказчик</div></td>
+        <td width="25%">&nbsp;</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td><div align="center">М.П</div></td>
+        <td>&nbsp;</td>
+        <td><div align="center">М.П.</div></td>
+      </tr>
+    </table>
+</html>

@@ -1,0 +1,204 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package org.uui.webkit;
+
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.InetSocketAddress;
+import java.net.URLDecoder;
+import java.nio.channels.NotYetConnectedException;
+import java.util.ArrayList;
+import java.util.concurrent.Executors;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.java_websocket.WebSocket;
+import org.java_websocket.WebSocketServer;
+import org.java_websocket.handshake.ClientHandshake;
+import org.ubo.json.JSONException;
+import org.ubo.json.JSONObject;
+import org.ubo.utils.Result;
+
+/**
+ *
+ * @author Dmitry Zubanov zubanov@gmail.com
+ */
+public class WebKitWebSocketServer extends WebSocketServer {
+
+    private static WebKitWebSocketServer self = null;
+    private WebSocket ws;
+    
+    private WebKitWebSocketServer(InetSocketAddress inetAddress){
+        super(inetAddress);
+    }
+
+    public synchronized static void startWebSocketServer(int port) {
+        if (self == null) {
+            InetSocketAddress inetAddress = new InetSocketAddress(port);
+            self = new WebKitWebSocketServer(inetAddress);
+            self.start();
+            System.out.println("WebKitWebSocketServer running on port " + port);
+        } else {
+            System.out.println("WebKitWebSocketServer already running on port " + port);
+        }
+    }
+
+    public synchronized static void stopWebSocketServer() {
+        if (self != null) {
+            try {
+                self.stop();
+                System.out.println("WebKitWebSocketServer stopped");
+
+            } catch (IOException ex) {
+                Logger.getGlobal().log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
+    public synchronized static boolean send(String message) {
+//        for(StackTraceElement ste : Thread.currentThread().getStackTrace()){
+//            System.out.println(ste);
+//        }
+        
+        boolean result;
+
+        if (self == null) {
+            return false;
+
+        } else if(self.ws == null){
+            return false;
+            
+        } else{
+            try {
+                System.out.println("Try send " + message);
+                self.ws.send(message);
+                result = true;
+                System.out.println("Send result is " + true);
+            } catch (IllegalArgumentException | NotYetConnectedException | InterruptedException e) {
+                result = false;
+                Logger.getGlobal().log(Level.WARNING, message, e);
+            }
+        }
+
+        return result;
+    }
+    
+//    public synchronized static boolean sendAll(String message) {
+//        boolean result;
+//
+//        if (self == null) {
+//            return false;
+//
+//        } else if(self.ws == null){
+//            return false;
+//            
+//        } else{
+//            try {
+//                System.out.println("Try send " + message);
+//                for(WebSocket ws : self.connections()){
+//                    ws.send(message);
+//                }
+//                result = true;
+//                System.out.println("Send result is " + true);
+//            } catch (IllegalArgumentException | NotYetConnectedException | InterruptedException e) {
+//                result = false;
+//                Logger.getGlobal().log(Level.WARNING, message, e);
+//            }
+//        }
+//
+//        return result;
+//    }
+
+    private Runnable clientMessageHandler(final WebSocket ws, final String string) {
+        Runnable r = new Runnable() {
+
+            @Override
+            public void run() {
+                String message = "";
+                try {
+                    message = URLDecoder.decode(string, "utf-8");
+                    System.out.println("onClientMessage decode " + message);
+
+                    JSONObject jsonObject = new JSONObject(message);
+                    String cmd = jsonObject.getString("command");
+                    switch (cmd) {
+                        case "callback":
+                            WebKitEventBridge.getInstance().pushEventToComponent(
+                                    jsonObject.getString("identificator"), message);
+                            break;
+                            
+                        case "register":
+                            // TODO
+                            jsonObject.getString("sess");
+                            ws.send("stub");
+                            break;
+
+                        case "execute":
+                            ArrayList<String> list = new ArrayList<>();
+                            list.add(jsonObject.getString("reflector"));
+                            list.add(jsonObject.getString("method"));
+                            list.add(jsonObject.getJSONObject("parameters").append("sess", jsonObject.getString("sess")).toString());
+                            Object[] result = WebKitExecutor.getInstance().
+                                    execute(list.toArray(new String[list.size()]));
+                            if (result.length > 0) {
+                                if (("" + result[0]).trim().equals("")) {
+                                    ws.send("stub");
+                                    return;
+                                }
+
+                                String jsCallbackFunction = list.get(1).replaceAll("get", "set");
+                                ws.send("getUICore()." + jsCallbackFunction
+                                        + "('" + WebKitUtil.prepareToJS("" + result[0]) + "');");
+                            } else {
+                                ws.send("stub");
+                            }
+
+                            break;
+                    }
+
+                } catch (UnsupportedEncodingException | JSONException | IllegalArgumentException | NotYetConnectedException | InterruptedException ex) {
+                    Logger.getGlobal().log(Level.WARNING, message, ex);
+                }
+            }
+        };
+
+        return r;
+    }
+
+    //@Override
+    public void onError(Throwable thrwbl) {
+        
+    }
+
+    @Override
+    public void onOpen(WebSocket ws, ClientHandshake ch) {
+        this.ws = ws;
+        System.out.println("onClientOpen " + ws.toString());
+        try {
+            ws.send("Accepted");
+        } catch (IllegalArgumentException | NotYetConnectedException | InterruptedException e) {
+            Logger.getGlobal().log(Level.SEVERE, null, e);
+        }
+    }
+
+    @Override
+    public void onClose(WebSocket ws, int i, String string, boolean bln) {
+        try {
+            ws.close(0);
+        } catch (Exception e) {
+            Logger.getGlobal().log(Level.SEVERE, null, e);
+        }
+    }
+
+    @Override
+    public void onMessage(WebSocket ws, String string) {
+        this.ws = ws;
+        Executors.newSingleThreadExecutor().execute(clientMessageHandler(ws, string));
+    }
+
+    @Override
+    public void onError(WebSocket ws, Exception excptn) {
+        WebKitUtil.showAlert(Result.newResultError(excptn.getMessage()));
+    }
+}

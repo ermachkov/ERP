@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<root>
+<default_printer value="PDF"/>
+<pos_printer value="PDF"/>
+
+<cashmachine config_dir="Atol" driver="virtual" name="Feliks" password="48" port="/dev/ttyUSB0" speed="115200" text_field_lenght="20"/>
+<!--<cashmachine config_dir="POS" driver="pos" name="Star" password="48" port="printer:PDF" speed="" text_field_lenght="56"/>-->
+<!--<cashmachine config_dir="POS" driver="pos" name="Star" password="48" port="html:/home/developer/.saas/app/ui/tmp" speed="" text_field_lenght="56"/>-->
+<!--<cashmachine config_dir="POS" driver="pos" name="Star" password="48" port="printer:printerName|html:/path/to/output" speed="" text_field_lenght="56"/>-->
+<!--<default_cashmachine name="Star"/>-->
+<default_cashmachine name="Feliks"/>
+
+<barcode_scanner debug="true" name="cipherlab" port="/dev/ttyUSB1" speed="2400" type="serial"/>
+<barcode_scanner debug="false" name="symbol" type="keyboard"/>
+
+<barcode_scanner aimer="true" debug="true" device="/dev/video0" height="240" name="genius" type="webcam" width="320"/>
+<default_barcode_scanner name="symbol"/>
+<database export_path="/home/developer/temp"/>
+</root>

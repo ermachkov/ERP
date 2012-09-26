@@ -1,0 +1,102 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title></title>
+        <style>
+            .orderTable td{
+                border-top: 1pt solid black;
+                border-right: 1pt solid black;
+                font-size: 9pt;
+            }
+            
+            .orderTable th{
+                border-top: 1pt solid black;
+                border-right: 1pt solid black;
+                font-size: 9pt;
+            }
+            
+            .orderTable{
+                border-left: 1pt solid black;
+                border-bottom: 1pt solid black;
+            }
+            
+            div{
+                font-size: 8pt;
+            }
+            
+        </style>
+    </head>
+
+    <div style="margin: 15mm;">
+        <div style="font-weight: bold; text-align:center; font-family:Arial, Helvetica, sans-serif;">
+            АКТ № {order_id}
+        </div>
+        <div style="text-align:left; font-family:Arial, Helvetica, sans-serif; margin-top: 45pt">
+            Заказчик: {order_customer_short_name}
+            <br/>
+            Представитель заказчика:__________________________________________________
+            <br/>
+            Регистрационный номер автомобиля: ______________________________________
+            <br/>
+            Доверенность / Талон: ___________________   Дата выдачи: ___________________
+        </div>
+        <div style="text-align:left; font-family:Arial, Helvetica, sans-serif;margin-top: 25pt;">
+            Исполнитель: {order_supplier_short_name}<br/>
+            <!--Исполнитель (полное имя): {order_supplier_full_name},<br/>-->
+            ИНН: {order_supplier_inn} <br/>
+            Банк: {order_supplier_account_bank} <br/>
+            Расчётный счёт: {order_supplier_account_account} <br/>
+            Кор. счёт: {order_supplier_account_ks} БИК: {order_supplier_account_bik} <br/>
+            Исполнительный адрес: {order_supplier_address} <br/>
+            Телефон: {order_supplier_phone} <br/>
+            E-mail: {order_supplier_email} 
+        </div>
+        <div style="text-align:left; font-family:Arial, Helvetica, sans-serif; margin-top: 25pt;">
+            {order_table}
+        </div>
+
+        <div style="text-align:left; font-family:Arial, Helvetica, sans-serif; margin-top:15pt;">
+            Всего оказано услуг на сумму: <b>{order_total_sum}</b>
+        </div>
+        <div style="text-align:left; font-family:Arial, Helvetica, sans-serif;margin-top: 25pt;">
+            Вышеперечисленные услуги выполнены полностью и в срок. 
+            Претензий по объему, качеству и срокам оказания услуг не имею.
+        </div>
+        <br/>
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                <td width="25%"><div align="center">Представитель заказчика</div></td>
+                <!--<td width="20%">&nbsp;</td>-->
+                <td width="25%"><div align="center">&nbsp;</div></td>
+                <td width="25%">_______________</td>
+                <td width="25%"><div align="center">&nbsp</div></td>
+            </tr>
+	</table>    
+        <br/>
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                <td width="25%"><div align="center">Кассир</div></td>
+                <!--<td width="20%">&nbsp;</td>-->
+                <td width="25%"><div align="center">&nbsp;</div></td>
+                <td width="25%">_______________</td>
+                <td width="25%"><div align="center">{cash_master_full_name}</div></td>
+            </tr>
+	    <tr>
+                <td>&nbsp;</td>
+                <td><div align="center">М. П.</div></td>
+                <td>&nbsp;</td>
+                <td><div align="center">&nbsp;</div></td>
+            </tr>
+        </table>
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                <td width="25%"><div align="center">Мастер</div></td>
+                <!--<td width="20%">&nbsp;</td>-->
+                <td width="25%"><div align="center">&nbsp;</div></td>
+                <td width="25%">_______________</td>
+                <td width="25%"><div align="center">{master_full_name}</div></td>
+            </tr>
+	</table>           
+    </div>
+</html>

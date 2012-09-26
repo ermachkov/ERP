@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>Carssier :: Formula</title>
+        <script>
+            var sess = "{sess}";
+        </script>
+        <script type="text/javascript" src="sites/formula/js/jquery.core.js"></script>
+        <script type="text/javascript" src="sites/formula/js/jquery-ui-1.8.16.custom.min.js"></script>
+        <script type="text/javascript" src="sites/formula/js/jquery-ui-i18n.min.js"></script>
+        <script type="text/javascript" src="sites/formula/js/jquery.ui.datepicker-ru.js"></script>
+        <script type="text/javascript" src="sites/formula/js/jquery.json-2.3.min.js"></script>
+        <script type="text/javascript" src="sites/formula/js/splitter.js"></script>
+        <script language="javascript" src="sites/formula/js/core.js"></script>
+        <link type="text/css" href="sites/formula/css/ui-darkness/jquery-ui-1.8.16.custom.css" rel="stylesheet" />
+        <link type="text/css" href="sites/formula/css/core.css" rel="stylesheet" />
+        <link href="img/icons/pumping.png" rel="icon" type="image/png"/>
+    </head>
+    <body onResize="getUICore().resize();">
+        <div id="mainPanel">
+            <div id="header"><img src="img/skin/light_logo.png" /></div>
+            <div id="redLine"></div>
+            <div id="grayLine"></div>
+            <div id="userPanel" align="right">{userPanel}</div>
+            {mainFrame}
+        </div>
+    </body>
+</html>
