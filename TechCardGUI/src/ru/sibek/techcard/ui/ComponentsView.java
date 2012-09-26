@@ -281,7 +281,6 @@ public class ComponentsView extends Component {
                         break;
                     }
                 }
-                // System.out.println(evt.toString());
 
 
             }
