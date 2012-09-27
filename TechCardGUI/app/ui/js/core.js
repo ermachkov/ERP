@@ -83,7 +83,18 @@ function UICore() {
     //$(".calendar").datepicker($.datepicker.regional["ru"]);
     }
          this.setTabHeader = function(html){
-        $(".nav-tabs").append(html);}
+       var re = new RegExp("href=\"([^\"]+)","ig");
+       var arr=re.exec(html);  
+       if($("a[href='"+arr[1]+"'].tab-link").length) 
+       {
+           if ($("li.active").length) $("li.active").removeClass(); 
+           $("a[href='"+arr[1]+"'].tab-link").parent().addClass("active");
+           if ($(".tab-pane.active").length) $(".tab-pane.active").removeClass("active");
+           $(arr[1]).addClass("active");
+          // alert("Уже открыто");
+       }
+       else $(".nav-tabs").append(html);
+        }
     
     this.setTechCardModal = function(html){
         

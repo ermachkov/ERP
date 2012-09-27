@@ -232,11 +232,14 @@ public class ComponentsView extends Component {
                             String deviceid = jsonObject.getString("deviceid");
                             MachinesCatalog mc = (MachinesCatalog) db.getObject(MachinesCatalog.class.getName(), Long.valueOf(deviceid));
                             mc.addTechCard(tcid);
-                            db.updateObject(mc);
-                           //ДОПИЛИТЬ ПРОБЛЕМУ 2 (Добавление мк когда база пуста)
+                            db.updateObject(mc);                
                             //--------------BLYAD!!!
                            Detail d = new Detail(getSession());
                             d.setSummary(jsonObject.getString("partname"));
+                            linkTechCard.setCssClass("marshrut-card");
+                            linkTechCard.setAttribute("id_mk", tcid);
+                            linkTechCard.setAttribute("card", "m_card"+tcid);
+                            linkTechCard.setHref("#m_card" + tcid + "");
                             d.addLabel(linkTechCard.getModel());
                             dl.addDetailItem(d);
                             if (emptyTable) {
