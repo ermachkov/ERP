@@ -58,7 +58,7 @@ public class ComponentsView extends Component {
     private boolean emptyTable = false;
 
     public ComponentsView(String sessionId) {
-       //getSession();
+        //getSession();
         super(sessionId);
         Path p = Paths.get(System.getProperty("user.dir"), "db.properties");
         db = DataBase.getInstance(p.toString());
@@ -100,7 +100,7 @@ public class ComponentsView extends Component {
         });
 
 
-        btnSaveTechCard = new Button(getSession(),"Сохранить");
+        btnSaveTechCard = new Button(getSession(), "Сохранить");
         btnSaveTechCard.setCssClass("saveTechCard button btn-primary");
         btnSaveTechCard.setImage("icon-ok icon-white");
         //btnSaveDevice.setAttribute("data-dismiss", "modal");
@@ -232,13 +232,13 @@ public class ComponentsView extends Component {
                             String deviceid = jsonObject.getString("deviceid");
                             MachinesCatalog mc = (MachinesCatalog) db.getObject(MachinesCatalog.class.getName(), Long.valueOf(deviceid));
                             mc.addTechCard(tcid);
-                            db.updateObject(mc);                
+                            db.updateObject(mc);
                             //--------------BLYAD!!!
-                           Detail d = new Detail(getSession());
+                            Detail d = new Detail(getSession());
                             d.setSummary(jsonObject.getString("partname"));
                             linkTechCard.setCssClass("marshrut-card");
                             linkTechCard.setAttribute("id_mk", tcid);
-                            linkTechCard.setAttribute("card", "m_card"+tcid);
+                            linkTechCard.setAttribute("card", "m_card" + tcid);
                             linkTechCard.setHref("#m_card" + tcid + "");
                             d.addLabel(linkTechCard.getModel());
                             dl.addDetailItem(d);
@@ -246,8 +246,8 @@ public class ComponentsView extends Component {
                                 emptyTable = false;//show NO TECH CArd menu
                             }
 
-                           JSMediator.exec(getSession(), 
-                            //WebKitFrame.getInstance().browserExecutor(
+                            JSMediator.exec(getSession(),
+                                    //WebKitFrame.getInstance().browserExecutor(
                                     "getUICore().refreshElement("
                                     + "'cardPanel" + deviceid + "', "
                                     + "'" + WebKitUtil.prepareToJS(dl.getModel()) + "');");
@@ -278,7 +278,9 @@ public class ComponentsView extends Component {
                              */
                             //END SHOW TABLE
 
-                        } catch (JSONException /*| WebKitException*/ ex) {
+                        } catch (JSONException /*
+                                 * | WebKitException
+                                 */ ex) {
                             System.err.println(ex);
                         }
                         break;
@@ -299,7 +301,7 @@ public class ComponentsView extends Component {
         cboCardType.setItems(data);
         final GostFormModels formBuilder = new GostFormModels();
 
-        linkAddOperation = new Link(getSession(),"добавить операцию");
+        linkAddOperation = new Link(getSession(), "добавить операцию");
         linkAddOperation.setCssClass("add-operation");
         linkAddOperation.setStyle("float: left; margin-top:10px;margin-right:10px");
         linkAddOperation.setHref("#");
@@ -313,8 +315,8 @@ public class ComponentsView extends Component {
                 try {
 
                     //WebKitFrame.getInstance().browserExecutor(
-                    JSMediator.exec(getSession(), 
-                    "getUICore().setAddOperationRow('"
+                    JSMediator.exec(getSession(),
+                            "getUICore().setAddOperationRow('"
                             + WebKitUtil.prepareToJS(formBuilder.getForm1operationRow(0))
                             + "');");
 
@@ -351,8 +353,8 @@ public class ComponentsView extends Component {
                     case "marshrut-card": {
                         try {
                             //WebKitFrame.getInstance().browserExecutor(
-                            JSMediator.exec(getSession(),         
-                                 "getUICore().setFormCmb('"
+                            JSMediator.exec(getSession(),
+                                    "getUICore().setFormCmb('"
                                     + WebKitUtil.prepareToJS("<h4>Выберите форму:</h4>" + cboFormType.getModel() + "<div id='form-panel'></div>")
                                     + "');");
                         } catch (Exception ex) {
@@ -374,7 +376,7 @@ public class ComponentsView extends Component {
                     case "form1": {
                         try {
                             //WebKitFrame.getInstance().browserExecutor(
-                                    JSMediator.exec(getSession(), 
+                            JSMediator.exec(getSession(),
                                     "getUICore().setFormModel('"
                                     + WebKitUtil.prepareToJS(formBuilder.getForm1Model() + linkAddOperation.getModel()
                                     + "<input type='radio' id='radio1' name='optionsRadios' checked>по умолчанию<input type='radio' id='radio2' name='optionsRadios'>с номером <input id='oper-num' type='text' style='margin-top:2px;margin-left:3px;width:35px;' class='input-small'><hr>")
@@ -389,7 +391,7 @@ public class ComponentsView extends Component {
                 }
             }
         });
-        chkTest = new CheckBox(getSession(),"CheckBox");
+        chkTest = new CheckBox(getSession(), "CheckBox");
         chkTest.addUIEventListener(new UIEventListener() {
 
             @Override
@@ -397,7 +399,7 @@ public class ComponentsView extends Component {
                 System.out.println("chkTest >>> " + chkTest.isChecked());
             }
         });
-        btnAddTechCard = new Button(getSession(),"Добавить");
+        btnAddTechCard = new Button(getSession(), "Добавить");
         btnAddTechCard.setCssClass("btn btn-primary");
         btnAddTechCard.setImage("icon-plus icon-white");
         btnAddTechCard.setAttribute("data-toggle", "modal");
@@ -409,13 +411,13 @@ public class ComponentsView extends Component {
                 //System.out.println("cboTest5555555555555");
                 try {
                     //WebKitFrame.getInstance().browserExecutor(
-                            JSMediator.exec(getSession(),
+                    JSMediator.exec(getSession(),
                             "getUICore().setTechCardModal('"
                             + WebKitUtil.prepareToJS("<h4>Выберите тип карты:</h4>" + cboCardType.getModel() + "<div id='cbo-panel'></div>" + "<div id='form-panel'></div>")
                             + "');");
-                    
-                   // WebKitFrame.getInstance().browserExecutor(
-                            JSMediator.exec(getSession(),
+
+                    // WebKitFrame.getInstance().browserExecutor(
+                    JSMediator.exec(getSession(),
                             "getUICore().setAddTechCardButton('"
                             + WebKitUtil.prepareToJS(btnSaveTechCard.getModel())
                             + "');");
@@ -426,7 +428,7 @@ public class ComponentsView extends Component {
             }
         });
 
-        btnAddDevice = new Button(getSession(),"Добавить");
+        btnAddDevice = new Button(getSession(), "Добавить");
         btnAddDevice.setCssClass("btn btn-primary");
         btnAddDevice.setImage("icon-plus icon-white");
         btnAddDevice.setAttribute("data-toggle", "modal");
@@ -437,7 +439,7 @@ public class ComponentsView extends Component {
             @Override
             public void event(UIEvent evt) {
                 System.out.println("btnADD >>> pressed");
-                btnSaveDevice = new Button(getSession(),"Сохранить");
+                btnSaveDevice = new Button(getSession(), "Сохранить");
                 btnSaveDevice.setCssClass("saveDevice button btn-primary");
                 btnSaveDevice.setImage("icon-ok icon-white");
                 //btnSaveDevice.setAttribute("data-dismiss", "modal");
@@ -464,35 +466,37 @@ public class ComponentsView extends Component {
                             mac.setName(deviceName);
                             mac.setPartNumber(deviceNumber);
                             db.addObject(mac);
-                            linkDevice = new Link(getSession(),mac.getPartNumber());
+                            linkDevice = new Link(getSession(), mac.getPartNumber());
                             linkDevice.setCssClass("device");
                             linkDevice.setAttribute("id_bd", mac.getId());
                             linkDevice.setHref("#tab" + mac.getId() + "");
 
                             //row2.addCell(new MacTableCell("<a class='device' id_bd=" + mac.getId() + " href\"#\">" + mac.getPartNumber() + "</a>", false));
-                            row2.addCell(new MacTableCell(getSession(),linkDevice.getModel(), false));
-                            row2.addCell(new MacTableCell(getSession(),mac.getName(), false));
-                            row2.addCell(new MacTableCell(getSession(),lblRemoveDevice.getModel(), false));
+                            row2.addCell(new MacTableCell(getSession(), linkDevice.getModel(), false));
+                            row2.addCell(new MacTableCell(getSession(), mac.getName(), false));
+                            row2.addCell(new MacTableCell(getSession(), lblRemoveDevice.getModel(), false));
                             rows2.add(row2);
                             tblDevices.setData(rows2);
 
                             if (emptyTable) {
                                 emptyTable = false;
-                               // WebKitFrame.getInstance().browserExecutor(
-                                        JSMediator.exec(getSession(),
+                                // WebKitFrame.getInstance().browserExecutor(
+                                JSMediator.exec(getSession(),
                                         "getUICore().setWorkPanel('"
                                         + WebKitUtil.prepareToJS(getModel())
                                         + "');");
 
                             } else {
                                 JSMediator.exec(getSession(),
-                                //WebKitFrame.getInstance().browserExecutor(
+                                        //WebKitFrame.getInstance().browserExecutor(
                                         "getUICore().refreshElement("
                                         + "'macTablePanel', "
                                         + "'" + WebKitUtil.prepareToJS(tblDevices.getModel()) + "');");
 
                             }
-                        } catch (JSONException /*| WebKitException */ex) {
+                        } catch (JSONException /*
+                                 * | WebKitException
+                                 */ ex) {
                             System.err.println(ex);
 
                         }
@@ -503,7 +507,7 @@ public class ComponentsView extends Component {
                     // JSONObject jsonObject = new JSONObject("load");
 
                     //WebKitFrame.getInstance().browserExecutor(
-                            JSMediator.exec(getSession(),
+                    JSMediator.exec(getSession(),
                             "getUICore().setAddDeviceButton('"
                             + WebKitUtil.prepareToJS(btnSaveDevice.getModel())
                             + "');");
@@ -520,8 +524,7 @@ public class ComponentsView extends Component {
          * linkDevice.addUIEventListener(new UIEventListener() {
          *
          * @Override public void event(UIEvent evt) {
-         * System.out.println("QWQWQWQWQWQW");   
-            }});
+         * System.out.println("QWQWQWQWQWQW"); }});
          */
 //        calendar = new Calendar(new Date(), "dd.MM.yyyy");
         /*
@@ -530,7 +533,7 @@ public class ComponentsView extends Component {
          * @Override public void event(UIEvent evt) {
          * System.out.println("calendar >>> " + calendar.getDate()); } });
          */
-        tblDevices = new MacTableModel(getSession(),false);
+        tblDevices = new MacTableModel(getSession(), false);
         MacTableHeaderModel mth = new MacTableHeaderModel();
         //+tblDevices.setRowClass("devicerow");
         mth.addHeaderColumn(new MacHeaderColumn("Cерийный номер", String.class, false));
@@ -547,7 +550,7 @@ public class ComponentsView extends Component {
             public void event(int event) {
                 try {
                     JSMediator.exec(getSession(),
-                    //WebKitFrame.getInstance().browserExecutor(
+                            //WebKitFrame.getInstance().browserExecutor(
                             "getUICore().refreshElement("
                             + "'macTablePanel', "
                             + "'" + WebKitUtil.prepareToJS(tblDevices.getModel()) + "');");
@@ -558,7 +561,7 @@ public class ComponentsView extends Component {
             }
         });
 
-        tblTechCards = new MacTableModel(getSession(),false);
+        tblTechCards = new MacTableModel(getSession(), false);
         MacTableHeaderModel cth = new MacTableHeaderModel();
         //tblTechCards.setRowClass("tech-card");
         cth.addHeaderColumn(new MacHeaderColumn("Номер карты", String.class, false));
@@ -575,7 +578,7 @@ public class ComponentsView extends Component {
             public void event(int event) {
                 try {
                     JSMediator.exec(getSession(),
-                    //WebKitFrame.getInstance().browserExecutor(
+                            //WebKitFrame.getInstance().browserExecutor(
                             "getUICore().refreshElement("
                             + "'macTablePanel', "
                             + "'" + WebKitUtil.prepareToJS(tblTechCards.getModel()) + "');");
@@ -587,7 +590,7 @@ public class ComponentsView extends Component {
         });
 
 
-        lblRemoveDevice = new Label(getSession(),"<i class=\"icon-remove\"></i>");
+        lblRemoveDevice = new Label(getSession(), "<i class=\"icon-remove\"></i>");
         lblRemoveDevice.setCssClass("operationicons");
         lblRemoveDevice.setAttribute("action", "remove");
         lblRemoveDevice.addUIEventListener(new UIEventListener() {
@@ -610,13 +613,13 @@ public class ComponentsView extends Component {
                             if (tblDevices.getRowCount() == 0) {
                                 emptyTable = true;
                                 JSMediator.exec(getSession(),
-                                //WebKitFrame.getInstance().browserExecutor(
+                                        //WebKitFrame.getInstance().browserExecutor(
                                         "getUICore().setWorkPanel('"
                                         + WebKitUtil.prepareToJS(getModel())
                                         + "');");
                             } else {
                                 JSMediator.exec(getSession(),
-                               // WebKitFrame.getInstance().browserExecutor(
+                                        // WebKitFrame.getInstance().browserExecutor(
                                         "getUICore().refreshElement("
                                         + "'macTablePanel', "
                                         + "'" + WebKitUtil.prepareToJS(tblDevices.getModel()) + "');");
@@ -627,7 +630,9 @@ public class ComponentsView extends Component {
 
                     }
 
-                } catch (JSONException /*| WebKitException*/ ex) {
+                } catch (JSONException /*
+                         * | WebKitException
+                         */ ex) {
                     System.err.println(ex);
 
                 }
@@ -645,15 +650,15 @@ public class ComponentsView extends Component {
             }
             for (MachinesCatalog mach : machines) {
                 MacTableRow row = new MacTableRow();
-                linkDevice = new Link(getSession(),mach.getPartNumber());
+                linkDevice = new Link(getSession(), mach.getPartNumber());
                 linkDevice.setCssClass("device");
                 linkDevice.setAttribute("id_bd", mach.getId());
                 linkDevice.setHref("#tab" + mach.getId() + "");
                 //row2.addCell(new MacTableCell("<a class='device' id_bd=" + mac.getId() + " href\"#\">" + mac.getPartNumber() + "</a>", false));
-                row.addCell(new MacTableCell(getSession(),linkDevice.getModel(), false));
+                row.addCell(new MacTableCell(getSession(), linkDevice.getModel(), false));
                 //row.addCell(new MacTableCell("<a class='device' id_bd=" + mach.getId() + " href=#tab" + mach.getId() + ">" + mach.getPartNumber() + "</a>", false));
-                row.addCell(new MacTableCell(getSession(),mach.getName(), false));
-                row.addCell(new MacTableCell(getSession(),lblRemoveDevice.getModel(), false));
+                row.addCell(new MacTableCell(getSession(), mach.getName(), false));
+                row.addCell(new MacTableCell(getSession(), lblRemoveDevice.getModel(), false));
                 rows.add(row);
                 //System.out.println("Machine:" + mach.getName() + " id=" + mach.getId() + "\n Internal Part number: " + mach.getPartNumber());
             }
@@ -714,7 +719,7 @@ public class ComponentsView extends Component {
             final JSONObject jsonObject = new JSONObject(json);
             if (jsonObject.getString("eventType").equals("load")) {
                 JSMediator.exec(getSession(),
-               // WebKitFrame.getInstance().browserExecutor(
+                        // WebKitFrame.getInstance().browserExecutor(
                         "getUICore().setWorkPanel('"
                         + WebKitUtil.prepareToJS(getModel())
                         + "');");
@@ -723,9 +728,9 @@ public class ComponentsView extends Component {
             if (jsonObject.getString("eventType").equals("tab-link")) {
                 // System.out.println("IJHLHIKUGIKGJYG");
                 //<button class="close">×</button>
-                Button btnClose = new Button(getSession(),"×");
+                Button btnClose = new Button(getSession(), "×");
                 btnClose.setCssClass("close");
-                tabLink = new Link(getSession(),jsonObject.getString("text") + btnClose.getModel());
+                tabLink = new Link(getSession(), jsonObject.getString("text") + btnClose.getModel());
                 tabLink.setHref("#tab" + jsonObject.getString("id_bd"));
                 tabLink.setCssClass("tab-link");
                 tabLink.setAttribute("content", jsonObject.getString("content"));
@@ -733,7 +738,7 @@ public class ComponentsView extends Component {
                 btnSaveTechCard.setAttribute("device_id_bd", jsonObject.getString("id_bd"));
                 tabLink.setAttribute("data-toggle", "tab");
                 JSMediator.exec(getSession(),
-                //WebKitFrame.getInstance().browserExecutor(
+                        //WebKitFrame.getInstance().browserExecutor(
                         "getUICore().setTabHeader('"
                         + WebKitUtil.prepareToJS("<li>" + tabLink.getModel() + "</li>")
                         + "');");
@@ -741,12 +746,11 @@ public class ComponentsView extends Component {
                     //HERE!!!!!!  
                     MachinesCatalog mc = (MachinesCatalog) db.getObject(MachinesCatalog.class.getName(), Long.valueOf(jsonObject.getString("id_bd")));
                     ArrayList<Long> partids = mc.getTechCard();
-                   //DIMA ETO DOPILIT ArrayList<TechnologyCard> technologyCard = db.getAllObjectsList(TechnologyCard.class.getName(), partids);
+                    //DIMA ETO DOPILIT ArrayList<TechnologyCard> technologyCard = db.getAllObjectsList(TechnologyCard.class.getName(), partids);
                     //KOSTYL'
                     ArrayList<TechnologyCard> technologyCard = new ArrayList();
-                    for (Long p:partids)
-                    {
-                        technologyCard.add((TechnologyCard)db.getObject(TechnologyCard.class.getName(),p));
+                    for (Long p : partids) {
+                        technologyCard.add((TechnologyCard) db.getObject(TechnologyCard.class.getName(), p));
                     }
                     //KOSTYL'
                     dl = new DetailsList(getSession());
@@ -755,7 +759,7 @@ public class ComponentsView extends Component {
                             emptyTable = false;
                         }
                         //создать модель Детаилс лист и далее вызывается функция которая его отобразит
-                        linkTechCard = new Link(getSession(),"");
+                        linkTechCard = new Link(getSession(), "");
 
                         for (TechnologyCard tcard : technologyCard) {
                             Detail detail = new Detail(getSession());
@@ -769,9 +773,9 @@ public class ComponentsView extends Component {
                                     if (doc.getMarshrutnayaCardId() != 0) {
                                         linkTechCard.setCssClass("marshrut-card");
                                         linkTechCard.setAttribute("id_mk", doc.getMarshrutnayaCardId());
-                                        linkTechCard.setAttribute("card", "m_card"+doc.getMarshrutnayaCardId());
+                                        linkTechCard.setAttribute("card", "m_card" + doc.getMarshrutnayaCardId());
                                         linkTechCard.setHref("#m_card" + doc.getMarshrutnayaCardId() + "");
-                                        detail.setAttribute("id_mk",doc.getMarshrutnayaCardId());
+                                        detail.setAttribute("id_mk", doc.getMarshrutnayaCardId());
                                         linkTechCard.setText("Маршрутная карта");
                                         detail.addLabel(linkTechCard.getModel());
                                     }
@@ -793,7 +797,7 @@ public class ComponentsView extends Component {
                      * jsonObject.getString("text") +"</h1>" + "</div>";
                      */
                     JSMediator.exec(getSession(),
-                   // WebKitFrame.getInstance().browserExecutor(
+                            // WebKitFrame.getInstance().browserExecutor(
                             "getUICore().setTabBody('"
                             + WebKitUtil.prepareToJS(getTechCardsPanel(jsonObject))
                             + "');");
@@ -807,29 +811,28 @@ public class ComponentsView extends Component {
             }
 
             if (jsonObject.getString("eventType").equals("tab-card-link")) {
-                Button btnClose = new Button(getSession(),"×");
+                Button btnClose = new Button(getSession(), "×");
                 btnClose.setCssClass("close");
-                tabLink = new Link(getSession(),jsonObject.getString("text") + btnClose.getModel());
+                tabLink = new Link(getSession(), jsonObject.getString("text") + btnClose.getModel());
                 tabLink.setHref("#m_card" + jsonObject.getString("id_mk"));
                 tabLink.setCssClass("tab-link");
                 tabLink.setAttribute("content", jsonObject.getString("content"));
                 tabLink.setAttribute("mk_id_bd", jsonObject.getString("id_mk"));
                 tabLink.setAttribute("data-toggle", "tab");
                 JSMediator.exec(getSession(),
-                //WebKitFrame.getInstance().browserExecutor(
+                        //WebKitFrame.getInstance().browserExecutor(
                         "getUICore().setTabHeader('"
                         + WebKitUtil.prepareToJS("<li>" + tabLink.getModel() + "</li>")
                         + "');");
                 //TUT OTOBRAZENIE EBUCHEY FORMY PO GOSTU//
                 MarshrutCard mcard = (MarshrutCard) db.getObject(MarshrutCard.class.getName(), Long.valueOf(jsonObject.getString("id_mk")));
                 formtype = mcard.getFormtype();
-          //DIMA      ArrayList<Operations> operations = db.getAllObjectsList(Operations.class.getName(), mcard.getOperations());
+                //DIMA      ArrayList<Operations> operations = db.getAllObjectsList(Operations.class.getName(), mcard.getOperations());
                 //KOSTYL'
-                ArrayList<Operations> operations =new ArrayList();
+                ArrayList<Operations> operations = new ArrayList();
                 ArrayList<Long> idsoper = mcard.getOperations();
-                for (Long id:idsoper)
-                {
-                    operations.add((Operations)db.getObject(Operations.class.getName(), id));
+                for (Long id : idsoper) {
+                    operations.add((Operations) db.getObject(Operations.class.getName(), id));
                 }
                 //KOSTYL'
                 String formheader = "", formbody = "", formfooter = "";
@@ -849,23 +852,23 @@ public class ComponentsView extends Component {
                     for (String line : lines) {
                         header += line;//System.out.println(line);
                     }
-                   // int tt=mcard.getOperations().size();
-                    for (int c=0;c<mcard.getOperations().size();c++){
-                    lines = Files.readAllLines(Paths.get(formbody),
-                            Charset.defaultCharset());
-                    for (String line : lines) {
-                        body += line;//System.out.println(line);
-                    }
-                    //Operations oper  = operations.get(c);//(Operations)db.getObject(Operations.class.getName(), operations.get(c));
-                    body=body.replace("{ceh}", operations.get(c).getCeh()).replace("{uch}",operations.get(c).getUch());
-                    body=body.replace("{rm}", operations.get(c).getRm()).replace("{oper}",String.valueOf(operations.get(c).getNumber()));
-                    body=body.replace("{opername}", operations.get(c).getOpername()).replace("{sm}",operations.get(c).getSm());
-                    body=body.replace("{prof}", operations.get(c).getProf()).replace("{r}",operations.get(c).getR());
-                    body=body.replace("{ut}", operations.get(c).getUt()).replace("{kr}",operations.get(c).getKr());
-                    body=body.replace("{koid}", operations.get(c).getKoid()).replace("{en}",operations.get(c).getEn());
-                    body=body.replace("{Ksh}", operations.get(c).getKst()).replace("{Tpz}",operations.get(c).getTpz()).replace("{Tsh}", operations.get(c).getTsh());
-                    body=body.replace("{devicename}", operations.get(c).getDevicename()).replace("{docname}",operations.get(c).getDocname());
-                    
+                    // int tt=mcard.getOperations().size();
+                    for (int c = 0; c < mcard.getOperations().size(); c++) {
+                        lines = Files.readAllLines(Paths.get(formbody),
+                                Charset.defaultCharset());
+                        for (String line : lines) {
+                            body += line;//System.out.println(line);
+                        }
+                        //Operations oper  = operations.get(c);//(Operations)db.getObject(Operations.class.getName(), operations.get(c));
+                        body = body.replace("{ceh}", operations.get(c).getCeh()).replace("{uch}", operations.get(c).getUch());
+                        body = body.replace("{rm}", operations.get(c).getRm()).replace("{oper}", String.valueOf(operations.get(c).getNumber()));
+                        body = body.replace("{opername}", operations.get(c).getOpername()).replace("{sm}", operations.get(c).getSm());
+                        body = body.replace("{prof}", operations.get(c).getProf()).replace("{r}", operations.get(c).getR());
+                        body = body.replace("{ut}", operations.get(c).getUt()).replace("{kr}", operations.get(c).getKr());
+                        body = body.replace("{koid}", operations.get(c).getKoid()).replace("{en}", operations.get(c).getEn());
+                        body = body.replace("{Ksh}", operations.get(c).getKst()).replace("{Tpz}", operations.get(c).getTpz()).replace("{Tsh}", operations.get(c).getTsh());
+                        body = body.replace("{devicename}", operations.get(c).getDevicename()).replace("{docname}", operations.get(c).getDocname());
+
                     }
                     lines = Files.readAllLines(Paths.get(formfooter),
                             Charset.defaultCharset());
@@ -875,9 +878,9 @@ public class ComponentsView extends Component {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-               // raskommentit header=header.replace("{znak}", mcard.getProfile_size().substring(0, mcard.getProfile_size().length()-(mcard.getProfile_size().length()-1)));
-                header=header.replace("{digit}", mcard.getProfile_size());
-                header=header.replace("{count}", "");
+                // raskommentit header=header.replace("{znak}", mcard.getProfile_size().substring(0, mcard.getProfile_size().length()-(mcard.getProfile_size().length()-1)));
+                header = header.replace("{digit}", mcard.getProfile_size());
+                header = header.replace("{count}", "");
                 header = header.replace("{partname}", mcard.getPartname()).replace("{number1}", mcard.getNumber1());
                 header = header.replace("{number2}", mcard.getNumber2()).replace("{matname}", mcard.getMatherialname());
                 header = header.replace("{firmname}", mcard.getFirmname()).replace("{kod}", mcard.getKod());
@@ -887,13 +890,15 @@ public class ComponentsView extends Component {
                 header = header.replace("{kd}", mcard.getKd()).replace("{mz}", mcard.getMz());
                 String form = header.replace("{row}", body).replace("{footer}", footer);
                 JSMediator.exec(getSession(),
-                //WebKitFrame.getInstance().browserExecutor(
+                        //WebKitFrame.getInstance().browserExecutor(
                         "getUICore().setTabBody('"
                         + WebKitUtil.prepareToJS("<div class='tab-pane' id='m_card" + jsonObject.getString("id_mk") + "'>" + form + "</div>")
                         + "');");
             }
 
-        } catch (JSONException /*| WebKitException*/ ex) {
+        } catch (JSONException /*
+                 * | WebKitException
+                 */ ex) {
             System.err.println(ex);
             Logger.getGlobal().log(Level.WARNING, json, ex);
         }
