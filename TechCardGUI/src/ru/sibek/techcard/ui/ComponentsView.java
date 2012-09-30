@@ -58,7 +58,6 @@ public class ComponentsView extends Component {
     private boolean emptyTable = false;
 
     public ComponentsView(String sessionId) {
-        //getSession();
         super(sessionId);
         Path p = Paths.get(System.getProperty("user.dir"), "db.properties");
         db = DataBase.getInstance(p.toString());
