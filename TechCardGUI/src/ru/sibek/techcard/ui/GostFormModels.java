@@ -19,7 +19,6 @@ public GostFormModels() {
     okpdtr.add("12313"+"-"+"Worker1");
     okpdtr.add("25453"+"-"+"Worker2");
     okpdtr.add("36663"+"-"+"Worker3");
-    //data-source='[&quot;Alabama&quot;,&quot;Ямайка&quot;]'>"
     for (String ok:okpdtr)
     {
         mas+="&quot;"+ok+"&quot;"+",";
