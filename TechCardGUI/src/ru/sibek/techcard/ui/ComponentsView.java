@@ -278,9 +278,7 @@ public class ComponentsView extends Component {
                              */
                             //END SHOW TABLE
 
-                        } catch (JSONException /*
-                                 * | WebKitException
-                                 */ ex) {
+                        } catch (JSONException ex) {
                             System.err.println(ex);
                         }
                         break;
