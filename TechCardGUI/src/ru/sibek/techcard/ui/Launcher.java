@@ -46,7 +46,9 @@ public class Launcher {
             @Override
             public void registeredNewSession(final String sessionId) {
                 ComponentsView componentsView = new ComponentsView(sessionId);
+               // NewClass nc = new NewClass(sessionId);
                 System.out.println(componentsView.getIdentificator());
+               //  System.out.println(nc.getIdentificator());
             }
         };
         tomcatServer.start();

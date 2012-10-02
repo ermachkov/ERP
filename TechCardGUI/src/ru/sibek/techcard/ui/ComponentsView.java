@@ -58,7 +58,6 @@ public class ComponentsView extends Component {
     private boolean emptyTable = false;
 
     public ComponentsView(String sessionId) {
-        //getSession();
         super(sessionId);
         Path p = Paths.get(System.getProperty("user.dir"), "db.properties");
         db = DataBase.getInstance(p.toString());
@@ -69,18 +68,6 @@ public class ComponentsView extends Component {
     private void init() {
 
 
-
-
-
-        /*
-         * if (re==0) { MachinesCatalog mac = new MachinesCatalog();
-         * mac.setName("Вулканизатормикрон"); mac.setPartNumber("ВЭР 1.000.000
-         * СБ"); db.addObject(mac); MachinesCatalog mac2 = new
-         * MachinesCatalog(); mac2.setName("Станок Фаворит");
-         *
-         * mac2.setPartNumber("ВЭР 2.000.000 СБ"); db.addObject(mac2); re++; }
-         */
-
         txtTest = new TextField(getSession());
         txtTest.addUIEventListener(new UIEventListener() {
 
@@ -90,14 +77,7 @@ public class ComponentsView extends Component {
             }
         });
 
-        txtPassword = new PasswordTextField(getSession());
-        txtPassword.addUIEventListener(new UIEventListener() {
-
-            @Override
-            public void event(UIEvent evt) {
-                System.out.println("txtPassword >>> " + txtPassword.getPassword());
-            }
-        });
+       
 
 
         btnSaveTechCard = new Button(getSession(), "Сохранить");
