@@ -791,7 +791,7 @@ public class ComponentsView extends Component {
             if (jsonObject.getString("eventType").equals("tab-card-link")) {
                 Button btnClose = new Button(getSession(), "×");
                 btnClose.setCssClass("close");
-                tabLink = new Link(getSession(), jsonObject.getString("text") + btnClose.getModel());
+                tabLink = new Link(getSession(), jsonObject.getString("text").trim() + btnClose.getModel());
                 tabLink.setHref("#m_card" + jsonObject.getString("id_mk"));
                 tabLink.setCssClass("tab-link");
                 tabLink.setAttribute("content", jsonObject.getString("content"));
