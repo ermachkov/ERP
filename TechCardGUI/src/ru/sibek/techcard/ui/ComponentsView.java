@@ -232,32 +232,7 @@ public class ComponentsView extends Component {
                                     + "'cardPanel" + deviceid + "', "
                                     + "'" + WebKitUtil.prepareToJS(dl.getModel()) + "');");
 
-                            //BLYAD
-                            //SHOW TABLE TECHCARD
-
-                            /*
-                             * String deviceNumber =
-                             * jsonObject.getString("deviceNumber"); String
-                             * deviceName = jsonObject.getString("deviceName");
-                             * //put to bd and add js to table
-                             *
-                             *
-                             * if (emptyTable) { emptyTable = false;
-                             * WebKitFrame.getInstance().browserExecutor(
-                             * "getUICore().setWorkPanel('" +
-                             * WebKitUtil.prepareToJS(getModel()) + "');");
-                             *
-                             * } else {
-                             * WebKitFrame.getInstance().browserExecutor(
-                             * "getUICore().refreshElement(" + "'macTablePanel',
-                             * " + "'" +
-                             * WebKitUtil.prepareToJS(tblDevices.getModel()) +
-                             * "');");
-                             *
-                             * }
-                             */
-                            //END SHOW TABLE
-
+                            
                         } catch (JSONException ex) {
                             System.err.println(ex);
                         }
@@ -497,20 +472,6 @@ public class ComponentsView extends Component {
 
             }
         });
-        //-*-*-*-*-*-*
-        /*
-         * linkDevice.addUIEventListener(new UIEventListener() {
-         *
-         * @Override public void event(UIEvent evt) {
-         * System.out.println("QWQWQWQWQWQW"); }});
-         */
-//        calendar = new Calendar(new Date(), "dd.MM.yyyy");
-        /*
-         * calendar.addUIEventListener(new UIEventListener() {
-         *
-         * @Override public void event(UIEvent evt) {
-         * System.out.println("calendar >>> " + calendar.getDate()); } });
-         */
         tblDevices = new MacTableModel(getSession(), false);
         MacTableHeaderModel mth = new MacTableHeaderModel();
         //+tblDevices.setRowClass("devicerow");
@@ -651,15 +612,6 @@ public class ComponentsView extends Component {
     public String getModel() {
         if (!emptyTable) {
             String model = ""
-                    /*
-                     * + "<div>" + txtTest.getModel() + "</div>" + "<div>" +
-                     * txtPassword.getModel() + "</div>" + "<div>" +
-                     * cboFormType.getModel() + "</div>" + "<div>" +
-                     * chkTest.getModel() + "</div>" + "<div>" +
-                     * btnTest.getModel() + "</div>" + "<div>" +
-                     * calendar.getModel() + "</div>" + "<div style='width:100%;
-                     * height:350px; overflow:auto;' id='macTablePanel'>"
-                     */
                     + "<div class='tab-pane active' id='tab1'>"
                     + "<div style='width:100%; height:750px; overflow:auto;' id='macTable'> "
                     + "<div style='width: 700px; margin:0 0 10px 50px' id=macTablePanel>" + tblDevices.getModel() + "</div>" + "<div style='padding-left:50px'>" + btnAddDevice.getModel() + "</div>" + "</div>"
