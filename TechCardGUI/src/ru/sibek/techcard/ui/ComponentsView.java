@@ -544,7 +544,7 @@ public class ComponentsView extends Component {
                     switch (jsonObject.getString("action")) {
                         case "specification": {
                        
-                   
+                   //ПЕРЕНЕСТИ В КОРЕ РЕПОРТСА
                                JSMediator.exec(getSession(),
                         //WebKitFrame.getInstance().browserExecutor(
                         "getUICore().setTabHeader('"
