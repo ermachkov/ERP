@@ -45,6 +45,7 @@ public class ComponentsView extends Component {
     private Button btnAddTechCard;
     private Button btnSaveTechCard;
     private Label lblRemoveDevice;
+    private Label lblShowSpecification;
     private Link linkDevice;
     private Link linkTechCard;
     private Link linkAddOperation;
@@ -528,7 +529,52 @@ public class ComponentsView extends Component {
             }
         });
 
+        lblShowSpecification = new Label(getSession(), "<i class=\"icon-file\"></i>");
+        lblShowSpecification.setCssClass("operationicons");
+        lblShowSpecification.setAttribute("action", "specification");
+        lblShowSpecification.addUIEventListener(new UIEventListener() {
 
+            @Override
+            public void event(UIEvent evt) {
+                try {
+                    JSONObject jsonObject = evt.getJSONObject();
+
+                    System.out.println("OLOLOL >>> " + jsonObject.getString("action") + jsonObject.getString("element"));
+
+                    switch (jsonObject.getString("action")) {
+                        case "specification": {
+                       
+                   
+                               JSMediator.exec(getSession(),
+                        //WebKitFrame.getInstance().browserExecutor(
+                        "getUICore().setTabHeader('"
+                        + WebKitUtil.prepareToJS("<li>" + "<a class='tab-link' data-toggle='tab' href='#spec"+jsonObject.getString("element")+"'>Specification</a>" + "</li>")
+                        + "');");
+                          
+                           JSMediator.exec(getSession(),
+                        //WebKitFrame.getInstance().browserExecutor(
+                        "getUICore().setTabBody('"
+                        + WebKitUtil.prepareToJS("<div class='tab-pane' id='spec" + jsonObject.getString("element") + "'>" + "specification" + "</div>")
+                        + "');");    
+                            
+                        }
+
+
+
+                    }
+
+                } catch (JSONException /*
+                         * | WebKitException
+                         */ ex) {
+                    System.err.println(ex);
+
+                }
+                /*
+                 *
+                 */
+            }
+        });
+                
         lblRemoveDevice = new Label(getSession(), "<i class=\"icon-remove\"></i>");
         lblRemoveDevice.setCssClass("operationicons");
         lblRemoveDevice.setAttribute("action", "remove");
@@ -597,7 +643,7 @@ public class ComponentsView extends Component {
                 row.addCell(new MacTableCell(getSession(), linkDevice.getModel(), false));
                 //row.addCell(new MacTableCell("<a class='device' id_bd=" + mach.getId() + " href=#tab" + mach.getId() + ">" + mach.getPartNumber() + "</a>", false));
                 row.addCell(new MacTableCell(getSession(), mach.getName(), false));
-                row.addCell(new MacTableCell(getSession(), lblRemoveDevice.getModel(), false));
+                row.addCell(new MacTableCell(getSession(), lblRemoveDevice.getModel()+lblShowSpecification.getModel(), false));
                 rows.add(row);
                 //System.out.println("Machine:" + mach.getName() + " id=" + mach.getId() + "\n Internal Part number: " + mach.getPartNumber());
             }
