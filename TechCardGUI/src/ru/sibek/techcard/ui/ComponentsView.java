@@ -26,6 +26,8 @@ import org.uui.table.*;
 import org.uui.detaillist.*;
 import org.uui.webkit.WebKitUtil;
 import ru.sibek.techcard.db.*;
+import ru.sibek.tcr.core.ReportsCore;
+import ru.sibek.tcr.reports.Specifications;
 
 /**
  *
@@ -97,6 +99,7 @@ public class ComponentsView extends Component {
                             JSONObject jsonObject = evt.getJSONObject();
                             MarshrutCard marshrutCard = new MarshrutCard();
                             marshrutCard.setFormtype(formtype);
+                            marshrutCard.setDeviceid(jsonObject.getString("device_id_bd"));
                             marshrutCard.setFirmname(jsonObject.getString("firmname"));
                             marshrutCard.setEn(jsonObject.getString("en"));
                             marshrutCard.setEv(jsonObject.getString("ev"));
@@ -209,6 +212,7 @@ public class ComponentsView extends Component {
                             TechnologyCard tcard = new TechnologyCard();
                             tcard.setName(jsonObject.getString("partname"));
                             tcard.addDocument(docid);
+                            tcard.setNumber(jsonObject.getString("number1"));
                             long tcid = db.addObject(tcard);
                             String deviceid = jsonObject.getString("deviceid");
                             MachinesCatalog mc = (MachinesCatalog) db.getObject(MachinesCatalog.class.getName(), Long.valueOf(deviceid));
@@ -543,19 +547,20 @@ public class ComponentsView extends Component {
 
                     switch (jsonObject.getString("action")) {
                         case "specification": {
-                       
+                       Specifications spec=new Specifications(getSession());
+                       spec.ShowSpecification(jsonObject.getString("element"));
                    //ПЕРЕНЕСТИ В КОРЕ РЕПОРТСА
-                               JSMediator.exec(getSession(),
-                        //WebKitFrame.getInstance().browserExecutor(
-                        "getUICore().setTabHeader('"
-                        + WebKitUtil.prepareToJS("<li>" + "<a class='tab-link' data-toggle='tab' href='#spec"+jsonObject.getString("element")+"'>Specification</a>" + "</li>")
-                        + "');");
-                          
-                           JSMediator.exec(getSession(),
-                        //WebKitFrame.getInstance().browserExecutor(
-                        "getUICore().setTabBody('"
-                        + WebKitUtil.prepareToJS("<div class='tab-pane' id='spec" + jsonObject.getString("element") + "'>" + "specification" + "</div>")
-                        + "');");    
+//                               JSMediator.exec(getSession(),
+//                        //WebKitFrame.getInstance().browserExecutor(
+//                        "getUICore().setTabHeader('"
+//                        + WebKitUtil.prepareToJS("<li>" + "<a class='tab-link' data-toggle='tab' href='#spec"+jsonObject.getString("element")+"'>Specification</a>" + "</li>")
+//                        + "');");
+//                          
+//                           JSMediator.exec(getSession(),
+//                        //WebKitFrame.getInstance().browserExecutor(
+//                        "getUICore().setTabBody('"
+//                        + WebKitUtil.prepareToJS("<div class='tab-pane' id='spec" + jsonObject.getString("element") + "'>" + "specification" + "</div>")
+//                        + "');");    
                             
                         }
 

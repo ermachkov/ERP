@@ -17,6 +17,7 @@ public class MarshrutCard implements Serializable, KnowsId {
 
     public final long serialVersionUID = 5L;
     private long id;
+    private String deviceid = "";
     private String firmname = "";
     private String number1 = "";
     private String number2 = "";
@@ -40,6 +41,14 @@ public class MarshrutCard implements Serializable, KnowsId {
 
     public void setFormtype(String formtype) {
         this.formtype = formtype;
+    }
+
+    public String getDeviceid() {
+        return deviceid;
+    }
+
+    public void setDeviceid(String deviceid) {
+        this.deviceid = deviceid;
     }
 
     public String getEv() {
