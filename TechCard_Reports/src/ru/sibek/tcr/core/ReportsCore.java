@@ -61,50 +61,45 @@ public class ReportsCore extends Component{
                     }
                     fullspec=header+nullstring+nullstring;
                     String zagolovok=string;
-                    zagolovok=zagolovok.replace("{U}", "<U>").replace("{!U}", "</U>").replace("{name}", "Детали");
+                    zagolovok=zagolovok.replace("{name}", "<U>Детали</U>");
                     zagolovok=zagolovok.replace("{format}", "").replace("{zona}", "").replace("{number}", "").replace("{kol}", "").replace("{description}", "").replace("{position}", "");
                     fullspec+=zagolovok;
                     
-                  Condition c1 = Condition.newCondition(Condition.EQUAL, element);
-                 
-                  //ArrayList  personList = db.getFilteredResultList(MarshrutCard.class.getName(), "getAge", c1);
-                    
-                   MachinesCatalog mc = (MachinesCatalog)db.getObject(MachinesCatalog.class.getName(), Long.valueOf(element));
-                    //ArrayList<TechnologyCard> tcard = db.getAllObjectsList(TechnologyCard.class.getName(),mc.getTechCard());
-                   ArrayList<TechnologyCard> tcard = new ArrayList();
-                    for (Long p : mc.getTechCard()) {
-                        tcard.add((TechnologyCard) db.getObject(TechnologyCard.class.getName(), p));
+                  //Condition c1 = Condition.newCondition(Condition.EQUAL, element);
+                 //ArrayList<Long> arraydocsid = ((TechnologyCard)db.getObject(TechnologyCard.class.getName(),Long.valueOf(element))).getDocuments();
+                 ArrayList<DocumentState> state = db.getAllObjectsList(DocumentState.class.getName());
+//               
+                
+                    ArrayList<MarshrutCard> mcard = null;
+
+                     for (DocumentState st : state) {
+                      if (st.getDeviceId()==Long.valueOf(element) && st.isState()==true)
+                      {
+                          //get spisok vsex MK u kotoryh device_id==st.getDeviceId()
+                          mcard=db.getAllObjectsList(MarshrutCard.class.getName());
+                          break;
+                      } else System.out.println("Komplekta docum net. Sozdat specific vse ravno?");
                     }
+                           
+                    
+           
+                 
+                    
+                  // MachinesCatalog mc = (MachinesCatalog)db.getObject(MachinesCatalog.class.getName(), Long.valueOf(element));
+                  
+                 //ArrayList<TechnologyCard> tcard = db.getAllObjectsList(TechnologyCard.class.getName(),mc.getTechCard());
+                //   ArrayList<TechnologyCard> tcard = new ArrayList();
+                //    for (Long p : mc.getTechCard()) {
+                  //      tcard.add((TechnologyCard) db.getObject(TechnologyCard.class.getName(), p));
+                  //  }
                     
                     fullspec+=nullstring;
-                    for (TechnologyCard tc : tcard) {
+                    for (MarshrutCard mc : mcard) {
                        
-                           body+=string.replace("{number}",tc.getNumber()).replace("{name}", tc.getName());
+                           body+=string.replace("{number}",mc.getNumber1()).replace("{name}", mc.getPartname()).replace("{kol}", mc.getKd());
                     }
                     fullspec+=body+footer;
-                    // int tt=mcard.getOperations().size();
-                    /*for (int c = 0; c < mcard.getOperations().size(); c++) {
-                        lines = Files.readAllLines(Paths.get(formbody),
-                                Charset.defaultCharset());
-                        for (String line : lines) {
-                            body += line;//System.out.println(line);
-                        }
-                        //Operations oper  = operations.get(c);//(Operations)db.getObject(Operations.class.getName(), operations.get(c));
-                        body = body.replace("{ceh}", operations.get(c).getCeh()).replace("{uch}", operations.get(c).getUch());
-                        body = body.replace("{rm}", operations.get(c).getRm()).replace("{oper}", String.valueOf(operations.get(c).getNumber()));
-                        body = body.replace("{opername}", operations.get(c).getOpername()).replace("{sm}", operations.get(c).getSm());
-                        body = body.replace("{prof}", operations.get(c).getProf()).replace("{r}", operations.get(c).getR());
-                        body = body.replace("{ut}", operations.get(c).getUt()).replace("{kr}", operations.get(c).getKr());
-                        body = body.replace("{koid}", operations.get(c).getKoid()).replace("{en}", operations.get(c).getEn());
-                        body = body.replace("{Ksh}", operations.get(c).getKst()).replace("{Tpz}", operations.get(c).getTpz()).replace("{Tsh}", operations.get(c).getTsh());
-                        body = body.replace("{devicename}", operations.get(c).getDevicename()).replace("{docname}", operations.get(c).getDocname());
-
-                    }
-                    lines = Files.readAllLines(Paths.get(formfooter),
-                            Charset.defaultCharset());
-                    for (String line : lines) {
-                        footer += line;//System.out.println(line);
-                    }*/
+                   
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

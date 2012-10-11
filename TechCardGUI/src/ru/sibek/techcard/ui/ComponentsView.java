@@ -99,7 +99,7 @@ public class ComponentsView extends Component {
                             JSONObject jsonObject = evt.getJSONObject();
                             MarshrutCard marshrutCard = new MarshrutCard();
                             marshrutCard.setFormtype(formtype);
-                            marshrutCard.setDeviceid(jsonObject.getString("device_id_bd"));
+                            marshrutCard.setDeviceid(jsonObject.getString("deviceid"));
                             marshrutCard.setFirmname(jsonObject.getString("firmname"));
                             marshrutCard.setEn(jsonObject.getString("en"));
                             marshrutCard.setEv(jsonObject.getString("ev"));
@@ -215,6 +215,12 @@ public class ComponentsView extends Component {
                             tcard.setNumber(jsonObject.getString("number1"));
                             long tcid = db.addObject(tcard);
                             String deviceid = jsonObject.getString("deviceid");
+                            DocumentState checkstate= new DocumentState();
+                            checkstate.setDocumentsId(docid);
+                            checkstate.setState(true);
+                            checkstate.setDeviceId(Long.valueOf(deviceid));
+                            checkstate.setTechCardId(tcid);
+                            db.addObject(checkstate);
                             MachinesCatalog mc = (MachinesCatalog) db.getObject(MachinesCatalog.class.getName(), Long.valueOf(deviceid));
                             mc.addTechCard(tcid);
                             db.updateObject(mc);
