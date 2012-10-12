@@ -82,17 +82,6 @@ public class ReportsCore extends Component{
                     }
                            
                     
-           
-                 
-                    
-                  // MachinesCatalog mc = (MachinesCatalog)db.getObject(MachinesCatalog.class.getName(), Long.valueOf(element));
-                  
-                 //ArrayList<TechnologyCard> tcard = db.getAllObjectsList(TechnologyCard.class.getName(),mc.getTechCard());
-                //   ArrayList<TechnologyCard> tcard = new ArrayList();
-                //    for (Long p : mc.getTechCard()) {
-                  //      tcard.add((TechnologyCard) db.getObject(TechnologyCard.class.getName(), p));
-                  //  }
-                    
                     fullspec+=nullstring;
                     for (MarshrutCard mc : mcard) {
                        
